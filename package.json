@@ -1,0 +1,38 @@
+{
+  "name": "Espressojs",
+  "version": "1.0.0",
+  "description": "Fast, Light Express Starting Point for development environment stage.",
+  "main": "espresso.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "es": "node espresso.js",
+    "es-php": "grunt php",
+    "start": "node espresso.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/misterzik/Espresso.js.git"
+  },
+  "keywords": [
+    "express",
+    "grunt"
+  ],
+  "author": "MisterZik",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/misterzik/Espresso.js/issues"
+  },
+  "homepage": "https://github.com/misterzik/Espresso.js#readme",
+  "dependencies": {
+    "express": "^4.14.0"
+  },
+  "engines": {
+    "node": ">= 0.10.0"
+  },
+  "devDependencies": {
+    "grunt-contrib-jshint": "~0.10.0",
+    "grunt-contrib-qunit": "~0.5.2",
+    "grunt-contrib-watch": "~0.6.1",
+    "grunt-php": "^1.5.1"
+  }
+}
