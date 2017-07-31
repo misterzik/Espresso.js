@@ -1,13 +1,14 @@
 {
   "name": "Espressojs",
-  "version": "1.0.0",
-  "description": "Fast, Light Express Starting Point for development environment stage.",
+  "version": "2.0.0",
+  "description": "Express Micro-Server for testing development environments.",
   "main": "espresso.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "es": "node espresso.js",
-    "es-php": "grunt php",
-    "start": "node espresso.js"
+    "es": "./bin/run",
+    "esPHP": "./bin/php",
+    "esWP": "./bin/webpack",
+    "start": "./bin/run"
   },
   "repository": {
     "type": "git",
@@ -15,7 +16,11 @@
   },
   "keywords": [
     "express",
-    "grunt"
+    "node-express",
+    "express-http",
+    "grunt",
+    "grunt-server",
+    "grunt-php-server"
   ],
   "author": "MisterZik",
   "license": "MIT",
@@ -24,15 +29,25 @@
   },
   "homepage": "https://github.com/misterzik/Espresso.js#readme",
   "dependencies": {
+    "body-parser": "^1.17.2",
+    "compression": "^1.7.0",
+    "debug": "^2.6.8",
     "express": "^4.14.0"
   },
   "engines": {
     "node": ">= 0.10.0"
   },
   "devDependencies": {
-    "grunt-contrib-jshint": "~0.10.0",
-    "grunt-contrib-qunit": "~0.5.2",
-    "grunt-contrib-watch": "~0.6.1",
-    "grunt-php": "^1.5.1"
+    "amd-define-factory-patcher-loader": "^1.0.0",
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.1.1",
+    "babel-preset-env": "^1.6.0",
+    "grunt": "^1.0.1",
+    "grunt-contrib-jshint": "^1.1.0",
+    "grunt-contrib-qunit": "^2.0.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-php": "^1.5.1",
+    "jquery": "^3.2.1",
+    "webpack": "^3.4.1"
   }
 }

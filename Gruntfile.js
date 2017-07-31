@@ -1,7 +1,12 @@
-/*global module:false*/
+/* _V2-MisterZik
+ * Global Module
+ */
+
 module.exports = function(grunt) {
 
-  // Project configuration.
+  /*
+   * Project configuration.
+   */
   grunt.initConfig({
     // Task configuration.
     jshint: {
@@ -24,11 +29,11 @@ module.exports = function(grunt) {
         src: 'Gruntfile.js'
       },
       lib_test: {
-        src: ['lib/**/*.js', 'test/**/*.js']
+        src: ['assets/js/*.js', 'assets/js/**/*.js']
       }
     },
     qunit: {
-      files: ['test/**/*.html']
+      files: ['public/*.html']
     },
     watch: {
       gruntfile: {
@@ -45,7 +50,7 @@ module.exports = function(grunt) {
             options: {
                 keepalive: true,
                 open: false,
-                port: 5000,
+                port: 8081,
                 base: 'public'
             }
         }

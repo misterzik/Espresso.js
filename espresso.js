@@ -1,24 +1,56 @@
-/*
- * Express Configuration - Mz
+/* _V2-MisterZik
+ * Express Packages Declaration
  */
-var express = require('express');
-var path = require('path');
-var serveStatic = require('serve-static');
+const express = require('express');
+const path = require('path');
+const app = express();
+/*
+ * Express GZIP Compression
+ * For a high-traffic website in production, the best way to put compression
+ * in place is to implement it at a reverse proxy level (see Use a reverse proxy).
+ *
+ * In that case, you do not need to use compression middleware.
+ * For details on enabling gzip compression in Nginx,
+ * see Module ngx_http_gzip_module in the Nginx documentation.
+ *
+ */
+const compression = require('compression');
+app.use(compression());
+/*
+ * Express Body-Parser
+ * Parse the body of requests which have payloads attached to them.
+ */
+ const bodyParser = require('body-parser');
+ //To parse URL encoded data
+ app.use(bodyParser.urlencoded({ extended: false }))
+
+ //To parse json data
+ app.use(bodyParser.json())
 
 /*
- * Express Run Server - Mz
+ * Express Port's Configuration
  */
-app = express();
-app.use(express.static('public'));
-var port = process.env.PORT || 8080;
-
+const port = process.env.PORT || 8080;
 /*
- * Routing - Mz
+ * Express Read Static Folders
  */
-
-app.get('*', function (req, res) {
-  res.sendFile(__dirname +'/public/index.html')
+app.use(express.static(path.join(__dirname, 'public')));
+app.use('/assets', express.static(__dirname + 'public/assets'));
+app.use('/assets/js', express.static(__dirname + 'public/assets/js'));
+app.use('/assets/css', express.static(__dirname + 'public/assets/css'));
+app.use('/assets/images', express.static(__dirname + 'public/assets/images'));
+/*
+ * Express Dynamic Routing
+ */
+app.all('/*', function (req, res, next) {
+  // Make index.html serve other files to support HTML5Mode
+  res.sendFile('index.html', { root: __dirname + '/public'});
 })
-
+/*
+ * Express Terminal Responce
+ */
 app.listen(port);
-console.log('Espresso Serving coffee at your localhost on port:' + port);
+/*
+ * Terminal Output
+ */
+console.log(`Brewing .... Espresso ...!\n` + `On the Stretch ...!\n` + `Served your Coffee at your localhost!, with port:` + port + `\nLive Preview: http://localhost:` + port);
