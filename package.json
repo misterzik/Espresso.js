@@ -1,13 +1,12 @@
 {
   "name": "Espressojs",
-  "version": "2.0.0",
-  "description": "Express Micro-Server for testing development environments.",
+  "version": "3.0.0",
+  "description": "Espresso, it's a plug-and-play configuration to get your started with all your express hosted projects.",
   "main": "espresso.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "es": "./bin/run",
-    "esPHP": "./bin/php",
-    "esWP": "./bin/webpack",
+    "webpack-build": "./bin/webpack",
     "start": "./bin/run"
   },
   "repository": {
@@ -17,10 +16,9 @@
   "keywords": [
     "express",
     "node-express",
-    "express-http",
-    "grunt",
-    "grunt-server",
-    "grunt-php-server"
+    "express-api",
+    "express-server",
+    "mean"
   ],
   "author": "MisterZik",
   "license": "MIT",
@@ -29,10 +27,16 @@
   },
   "homepage": "https://github.com/misterzik/Espresso.js#readme",
   "dependencies": {
+    "bluebird": "^3.5.1",
     "body-parser": "^1.17.2",
+    "chokidar": "^2.0.4",
     "compression": "^1.7.0",
-    "debug": "^2.6.8",
-    "express": "^4.14.0"
+    "debug": "^3.1.0",
+    "express": "^4.14.0",
+    "finalhandler": "^1.1.1",
+    "mongoose": "^5.2.5",
+    "serve-favicon": "^2.5.0",
+    "serve-static": "^1.13.2"
   },
   "engines": {
     "node": ">= 0.10.0"
@@ -42,12 +46,9 @@
     "babel-core": "^6.25.0",
     "babel-loader": "^7.1.1",
     "babel-preset-env": "^1.6.0",
-    "grunt": "^1.0.1",
-    "grunt-contrib-jshint": "^1.1.0",
-    "grunt-contrib-qunit": "^2.0.0",
-    "grunt-contrib-watch": "^1.0.0",
-    "grunt-php": "^1.5.1",
     "jquery": "^3.2.1",
-    "webpack": "^3.4.1"
+    "uglifyjs-webpack-plugin": "^1.2.7",
+    "webpack": "^4.16.2",
+    "webpack-cli": "^3.1.0"
   }
 }

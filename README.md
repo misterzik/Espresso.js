@@ -1,8 +1,6 @@
 
-![Espresso](espresso.png)
+![Espresso](Espresso-Logo.png)
 
-# Espresso.JS
+##### (Es)presso - POWERED BY INSANEN.COM LABS
 
-#### Espresso is a configurable web server. Wrapper around Express best-practices and findings for Production, Espresso could be used has a multi-threaded architecture, which makes it extremely scalable and usable in large scale static sites!
-
-#### Feel free to share your configuration on a branch!
+# Express Server or (Es)presso, it's a plug-and-play configuration to get your started with all your express hosted projects.

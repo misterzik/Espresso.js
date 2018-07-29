@@ -3,11 +3,18 @@
  */
 
 import $ from 'jquery';
-//import jQuery from "jquery/src/core";
 
-//require('jquery/src/core/init');
-//require('jquery/src/manipulation');
+/**
+ *  Extra jQuery Libraries
+ */
+ // import jQuery from "jquery/src/core";
+ // require('jquery/src/core/init');
+ // require('jquery/src/manipulation');
 
+/*
+ * jQuery 2 Way Binding
+ * Effect
+ */
 
 /*
  * jQuery Placebo Effect of 2 Way Binding
@@ -24,7 +31,7 @@ let _lName = "Way";
 $("#firstName").val(_fName);
 $("#lastName").val(_lName);
 
-$("#firstName, #lastName").bind("change keyup", function(){
+$("#firstName, #lastName").keyup(function(){
     updateFullName();
 });
 
