@@ -36,7 +36,7 @@ app.use(compression());
  * Express Body-Parser
  */
 const favicon = require('serve-favicon');
-app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
+app.use(favicon(path.join(__dirname, '../dist', 'favicon.ico')))
 
 /*
  * Express Port's Configuration
@@ -48,7 +48,7 @@ const port = process.env.PORT || _port.number;
  */
 const serveStatic = require('serve-static');
 
-app.use(serveStatic(path.join(__dirname, 'public'), {
+app.use(serveStatic(path.join(__dirname, '../dist'), {
   maxAge: '1d',
   setHeaders: setCustomCacheControl,
   etag: true,
