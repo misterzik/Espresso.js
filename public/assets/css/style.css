@@ -1,8 +1,10 @@
 html {
-  background-image: linear-gradient(to left top, #214780, #23569a, #2366b4, #1f77cf, #1288eb);
+    background-image: linear-gradient(to left top, #214780, #23569a, #2366b4, #1f77cf, #1288eb);
 }
 
 .logo {
-  width: 111px;
-  margin-top: -2rem;
+    width: 26px;
+    margin-top: -1rem;
+    margin-left: 1rem;
+    margin-bottom: 1rem;
 }

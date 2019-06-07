@@ -1,5 +1,7 @@
 /**
- * Webpack Core Configs
+ * Vimedev.com Labs
+ * --------------------
+ * Basic Web-Pack Core Configs
  * ----
  * 1. Entry
  * 2. Output
@@ -12,10 +14,12 @@ const path = require('path');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 /**
+ * Vimedev.com Labs
+ * --------------------
  * Configuration
  */
 const config = {
-    context: path.resolve(__dirname, "public/assets/js/es6"),
+    context: path.resolve(__dirname, "public/assets/js/jQuery"),
     entry: {
         app: './index.js',
         vendor: './two-binding.js'
@@ -33,15 +37,14 @@ const config = {
         }),
     ],
     module: {
-      rules: [
-            {
-              test: /jquery[\\\/]src[\\\/]selector\.js$/,
-              loader: 'amd-define-factory-patcher-loader'
+        rules: [{
+                test: /jquery[\\\/]src[\\\/]selector\.js$/,
+                loader: 'amd-define-factory-patcher-loader'
             },
             {
-              test: /\.js$/,
-              exclude: /(node_modules|bower_components)/,
-              use: {
+                test: /\.js$/,
+                exclude: /(node_modules|bower_components)/,
+                use: {
                     loader: 'babel-loader',
                 }
             }

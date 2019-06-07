@@ -1,6 +1,10 @@
 /*
  * Database Configuration
- * Insanen.com Labs
+ * Vimedev.com Labs
+ * ----------------
+ * Please copy and paste the location for your mongodb
+ * -----------------
+ * 
  */
 
 module.exports = {
