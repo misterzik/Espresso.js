@@ -1,6 +1,5 @@
 /*
- * Express Port's Configuration
- * Insanen.com Labs
+ * Vimedev.com Labs
  */
 
 module.exports = {
