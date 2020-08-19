@@ -1,32 +1,29 @@
 /**
- * Vimedev.com Labs
- * --------------------
- * Basic Web-Pack Core Configs
- * ----
- * 1. Entry
- * 2. Output
- * 3. Loaders
- * 4. Plugins
+ * EspressoJS - Powered by Vimedev.com Labs
+ * ---
+ * Basic Web-Pack Configuration Declarations
+ * ---
+ * 
  */
 
 const webpack = require('webpack');
 const path = require('path');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 /**
- * Vimedev.com Labs
- * --------------------
- * Configuration
+ * EspressoJS - Powered by Vimedev.com Labs
+ * ---
+ * Configuration Usage
  */
 const config = {
-    context: path.resolve(__dirname, "public/assets/js/jQuery"),
+    context: path.resolve(__dirname, "./public/assets/js/jQuery"),
     entry: {
         app: './index.js',
         vendor: './two-binding.js'
     },
     output: {
         filename: '[name].bundle.js',
-        path: path.resolve(__dirname, 'public/assets/js/src')
+        path: path.resolve(__dirname, './public/assets/js/src')
 
     },
     plugins: [

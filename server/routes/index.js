@@ -1,9 +1,9 @@
 /**
+ * EspressoJS - Hippie's Fav Server Plate
+ * Powered by Vimedev.com Labs
+ * ----
  * Client Model
- * Vimedev.com Labs
- * ----------------
- * Router Path-Ways Export All
- * -----------------
+ * ----
  * @param {*} app - Vimedev.com Labs
  */
 

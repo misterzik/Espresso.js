@@ -1,18 +1,18 @@
 /**
+ * EspressoJS - Hippie's Fav Server Plate
+ * Powered by Vimedev.com Labs
+ * ---
  * Client Model
- * Vimedev.com Labs
- * ----------------
- * Router Path-Ways
+ * ---
  * Basic Clients  Collection - API CRUD
- * -----------------
+ * ---
  * @param {*} app - Vimedev.com Labs
  */
 
 module.exports = (app) => {
     const clientRouter = require('../../controllers/client/client.controller.js');
-    const preFix = '/api/v1';
-    const path = '/clients/';
-    const url = preFix + path;
+    const preFix = '/api/clients/';
+    const url = preFix;
 
     /**
      * Create
