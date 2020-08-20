@@ -1,14 +1,14 @@
 {
     "name": "espressojs",
-    "version": "3.0.2",
+    "version": "3.1.0",
     "description": "EspressoJS, Express Server Bare-Bones with some Beans for fiber. This ain't Goya!",
     "main": "espresso.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "es-server": "node espresso.js",
-        "dev-build": "webpack --mode development --display-modules",
-        "prod-build": "webpack --mode production --display-modules",
-        "start": "node espresso.js"
+        "start": "cross-env NODE_ENV=global node espresso.js",
+        "esp": "cross-env NODE_ENV=development node espresso.js",
+        "bu-dev": "webpack --mode development --display-modules",
+        "bu-prod": "webpack --mode production --display-modules"
     },
     "repository": {
         "type": "git",
@@ -49,6 +49,7 @@
         "amd-define-factory-patcher-loader": "^1.0.0",
         "babel-loader": "^8.1.0",
         "babel-preset-env": "^1.7.0",
+        "cross-env": "^7.0.2",
         "jquery": "^3.5.1",
         "terser-webpack-plugin": "^4.1.0",
         "webpack": "^4.44.1",

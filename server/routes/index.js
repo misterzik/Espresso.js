@@ -7,12 +7,22 @@
  * @param {*} app - Vimedev.com Labs
  */
 
-const express = require('express');
-const router = express.Router();
-const path = require('path');
+ module.exports = (app)=> {
+    const path = require('path');
+    const api = require('./db/api');
+    
+    app.get('/', function(req, res, next) {
+        res.sendFile('index.html', { root: path.join(__dirname, '../public') });
+    });
+    
+    app.use('/api', api);
+    require('./db/client')(app); 
+    require('./../config/global.message')(app);
 
-router.get('/', function(req, res, next) {
-    res.sendFile('index.html', { root: path.join(__dirname, '../public') });
-});
+    app.use((req, res, next) => {
+        let err = new Error('404 - Not Found');
+        err.status = 404;
+        next(err);
+    })
+}
 
-module.exports = router;

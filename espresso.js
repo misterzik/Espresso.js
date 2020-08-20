@@ -7,50 +7,32 @@
  * @param {*} app - EspressoJS by Vimedev.com Labs
  */
 
-/*
- * EspressoJS - Global Vars Declaration
- */
 const express = require('express');
 const app = express();
+const cfg = require('./server')
 
-const _path = require('path');
-const _cors = require('cors');
-const _compr = require('compression');
-const _bodyParser = require('body-parser');
-const _favicon = require('serve-favicon');
+const _path = require('path'),
+_cors = require('cors'),
+_compr = require('compression'),
+_bodyParser = require('body-parser'),
+_favicon = require('serve-favicon');
 
-const _static = require('serve-static');
+const _static = require('serve-static'),
+_port = process.env.PORT || cfg.port,
+index = require('./server/routes/index');
 
-const _portReq = require('./server/config/port.config');
-const _port = process.env.PORT || _portReq.number;
-
-/**
- * EspressoJS - Hippie's Fav Server Plate
- * Powered by Vimedev.com Labs
- * ----
- * MongoDB Integration
- * ----
- * By default this is not Enabled, 
- * Please uncomment text below in order 
- * to enable MongoDB Integration.
- * ----
- * Note: You should have mongoDB already
- * running locally in order for this section to
- * work. 
- */ 
-
-/*
 const mongoose = require('mongoose');
-const _dbConfig = require('./config/database.config');
 
-mongoose.Promise = global.Promise;
-mongoose.connect(_dbConfig.url, {
-        useNewUrlParser: true,
-        promiseLibrary: require('bluebird')
-    })
-    .then(() => console.log('EspressoJS- DB Connection succesful - Extra Sugar!!!'))
-    .catch((err) => console.error(err));
-*/
+if(cfg.mongo_isEnabled == true){
+    const url = `mongodb://${cfg.mongo.uri}:${cfg.mongo.port}/${cfg.mongo.db}`;
+    mongoose.Promise = global.Promise;
+    mongoose.connect(url, {
+            useNewUrlParser: true,
+            promiseLibrary: require('bluebird')
+        })
+        .then(() => console.log(':: DB Connection succesful ::'))
+        .catch((err) => console.error(err));
+}
 
 app.use(_compr());
 app.use(_cors());
@@ -70,27 +52,6 @@ function setCustomCacheControl(res, path) {
     }
 }
 
-/*
- * EspressoJS - Hippie's Fav Server Plate
- * Powered by Vimedev.com Labs
- * ---
- * Express Dynamic Routing
- */
-
-const index = require('./server/routes/index');
-const api = require('./server/routes/db/api');
-
-
-app.use('/', index);
-app.use('/api', api);
-require('./server/routes/db/client.js')(app); 
-require('./server/config/logs.config.js')(app);
+index(app)
 app.listen(_port);
-
-app.use((req, res, next) => {
-    let err = new Error('404 - Not Found');
-    err.status = 404;
-    next(err);
-})
-
 module.exports = app;
