@@ -3,10 +3,9 @@
  * Powered by Vimedev.com Labs
  * ---
  * Client Controller
- *
- * Basic functions to get your started,
  */
-const Client = require('./../../models/Client.model.js');
+
+const Client = require('../../models/client.model.js');
 
 /**
  * Retrieve and return all notes from the documents.
