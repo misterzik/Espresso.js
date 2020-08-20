@@ -1,5 +1,5 @@
 {
-    "name": "espressojs",
+    "name": "@misterzik/espressojs",
     "version": "3.1.0",
     "description": "EspressoJS, Express Server Bare-Bones with some Beans for fiber. This ain't Goya!",
     "main": "espresso.js",
