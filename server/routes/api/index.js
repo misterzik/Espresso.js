@@ -10,7 +10,7 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-    res.json({ "message": "Welcome to EspressoJS Plug-n-Play. Static Message with Space to Grow. Index of API." });
+    res.json({ "message": "Welcome to Espresso JS Plug-n-Play." });
 });
 
 module.exports = router;
