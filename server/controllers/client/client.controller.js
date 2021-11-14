@@ -2,7 +2,7 @@
  * EspressoJS - Hippie's Fav Server Plate
  * Powered by Vimedev.com Labs
  * ---
- * Client Controller
+ * MongoDB Client Controller
  */
 
 const Client = require('../../models/client.model.js');
@@ -25,7 +25,7 @@ exports.findAll = (req, res) => {
 };
 
 /**
- * Create and Save a new Client's to Collection
+ * Create and Save a new Client('s) to Collection
  * @param {*} req 
  * @param {*} res 
  */
@@ -87,7 +87,7 @@ exports.findOne = (req, res) => {
 };
 
 /**
- * Update a client identified by the 
+ * Update a client('s) identified by the 
  * clientId in the request collection
  * @param {*} req 
  * @param {*} res 

@@ -2,9 +2,7 @@
  * EspressoJS - Hippie's Fav Server Plate
  * Powered by Vimedev.com Labs
  * ---
- * Client Model
- * ---
- * Basic Clients  Collection - API CRUD
+ * Client Model -- Basic Clients Collection - API CRUD
  * ---
  * @param {*} app - Vimedev.com Labs
  */

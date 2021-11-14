@@ -2,9 +2,8 @@
  * EspressoJS - Hippie's Fav Server Plate
  * Powered by Vimedev.com Labs
  * ----
- * Client Model
+ * API Routers
  * ---
- *
  */
 
 const express = require('express');

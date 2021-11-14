@@ -2,7 +2,7 @@
  * EspressoJS - Hippie's Fav Server Plate
  * Powered by Vimedev.com Labs
  * ----------------
- * Schema Example
+ * MongoDB Schema Example
  */
 
 const mongoose = require('mongoose');

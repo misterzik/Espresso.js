@@ -35,15 +35,15 @@ if(cfg.mongo_isEnabled == true){
 
 app.use(_compr());
 app.use(_cors());
-app.use(express.urlencoded({ extended: false }))
-app.use(express.json())
-app.use(_favicon(_path.join(__dirname, 'public', 'favicon.ico')))
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+app.use(_favicon(_path.join(__dirname, 'public', 'favicon.ico')));
 app.use(_static(_path.join(__dirname, 'public'), {
     maxAge: '1d',
     setHeaders: setCustomCacheControl,
     etag: true,
     extensions: 'error.html'
-}))
+}));
 
 function setCustomCacheControl(res, path) {
     if (_static.mime.lookup(path) === 'text/html') {
@@ -51,6 +51,6 @@ function setCustomCacheControl(res, path) {
     }
 }
 
-index(app)
+index(app);
 app.listen(_port);
 module.exports = app;
