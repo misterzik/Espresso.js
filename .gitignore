@@ -58,3 +58,7 @@ package-lock.json
 # dotenv environment variables file
 .env
 .vscode
+
+# Local Development
+public/assets/src/app.bundle.js
+public/assets/src/vendor.bundle.js

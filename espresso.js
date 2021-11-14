@@ -9,17 +9,16 @@
 
 const express = require('express');
 const app = express();
-const cfg = require('./server')
+const cfg = require('./server');
 
 const _path = require('path'),
-_cors = require('cors'),
-_compr = require('compression'),
-_bodyParser = require('body-parser'),
-_favicon = require('serve-favicon');
+    _cors = require('cors'),
+    _compr = require('compression'),
+    _favicon = require('serve-favicon');
 
 const _static = require('serve-static'),
-_port = process.env.PORT || cfg.port,
-index = require('./server/routes/index');
+    _port = process.env.PORT || cfg.port,
+    index = require('./server/routes/index');
 
 const mongoose = require('mongoose');
 
@@ -36,8 +35,8 @@ if(cfg.mongo_isEnabled == true){
 
 app.use(_compr());
 app.use(_cors());
-app.use(_bodyParser.urlencoded({ extended: false }))
-app.use(_bodyParser.json())
+app.use(express.urlencoded({ extended: false }))
+app.use(express.json())
 app.use(_favicon(_path.join(__dirname, 'public', 'favicon.ico')))
 app.use(_static(_path.join(__dirname, 'public'), {
     maxAge: '1d',
