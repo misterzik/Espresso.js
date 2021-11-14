@@ -1,10 +1,10 @@
 {
     "name": "@misterzik/espressojs",
-    "version": "3.1.6",
+    "version": "3.1.7",
     "description": "EspressoJS / Espresso It's your one-stop Express Configuration Boiler-Plate, plug-and-play configuration to get you started with hosting your front-end projects. This is a barebones configuration with the option to scale up using MongoDB.",
     "main": "espresso.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
+        "test": "echo \"Error: no test specified\"",
         "start": "cross-env NODE_ENV=global node espresso.js",
         "dev": "cross-env NODE_ENV=development node espresso.js",
         "prod": "cross-env NODE_ENV=production node espresso.js",
