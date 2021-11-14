@@ -14,7 +14,7 @@ config.hostname = 'www.example.com';
 config.port = '80'
 
 // Settings :: MongoDB
-config.mongo_isEnabled = true
+config.mongo_isEnabled = false;
 config.mongo = {};
 config.mongo.uri = process.env.MONGO_URI || 'localhost';
 config.mongo.port = '27017'

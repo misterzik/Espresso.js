@@ -17,7 +17,7 @@
     
     app.use('/api', api);
     require('./db/client')(app); 
-    require('./../config/global.message')(app);
+    require('../global.message')(app);
 
     app.use((req, res, next) => {
         let err = new Error('404 - Not Found');

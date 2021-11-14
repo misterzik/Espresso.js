@@ -1,55 +1,56 @@
 
 ![Espresso](Espresso-Logo.png)
 
-## EspressoJS
+## EspressoJS / Espresso
+  
 
+### EspressoJS / Espresso It's your one-stop Express Configuration Boiler-Plate, plug-and-play configuration to get you started with hosting your front-end projects. Barebones configuration with the option to scale up using MongoDB.
 
----
-
-
-
-### Express Server Bare-Bones with some Beans for fiber. This ain't Goya!. (mongoDB Ready)
-
-
-
+#### Express Server boiler-plate with some beans for fiber. This ain't Goya!.  (mongoDB Ready)
 
 ### Getting Started
 
 
-* Download [latest release](https://github.com/misterzik/Espresso.js/tags) or git clone Espresso.js
+* Download [latest release](https://github.com/misterzik/Espresso.js/tags) or in your bash of choice; $ git clone Espresso.js
 
-    `git clone https://github.com/misterzik/Espresso.js.git`
+  
 
-* Open cmd/terminal inside folder
+   `git clone https://github.com/misterzik/Espresso.js.git`
 
-    `cd "YOUR-PATH"/Espresso.js`
+  
 
-* Install dependencies
+* Change directory to new cloned repository by using your command line of choice. (NodeJS is Require to be installed.)
 
-    `npm install`
+  `cd "YOUR-PATH"/Espresso.js`
 
-* To run the pre-made demo found on `/public/`, Go ahead and run 
+* Once in Espresso.js folder, Install project dependencies by typing;
 
-    Without MongoDB:
+  `npm install`
 
-    `npm start`
+  
 
-    With MongoDB:
-    
-    `npm run esp` 
-    
-* In the case of getting curious and you make changes to the demo files located on `/public/assets/js/jQuery` make sure to build the project to see updates by running the following commands :
+* After installing all dependencies from Espresso, You are ready to run it, before hand I left you three files that can/should be modified to your liking; 
 
-    for development environment
+  Pre-made Configurations:
+  * `server/config/config.global.js`
+  * `server/config/config.production.js`
+  * `server/config/config.development.js`
 
-    `npm run bu-dev` 
+  Let's run the demo from the files included, we can start by bundling the demo javascript located `/public/assets/js/` by typing on your terminal `npm run webpack-dev`this will bundle the javascript needed for the `index.html`.
 
-    for production environment
+* Run project Without MongoDB, by running `npm start`, If you would like to run instance with MongoDB run `npm run dev` or `npm run prod` .
+ 
+   Note: If you use MongoDB you have to edit the following file with your MongoDB instance credentials;
+   `server/config/config.production.js` or `server/config/config.development.js`
 
-    `npm run bu-prod` 
 
-* Stop server by pressing: 
-    
-    `CTRL + C`
+* Stop server by pressing `CTRL + C` to terminated the Espresso process.
 
-##### Requirements : Please make sure you already have Node/NPM installed, and MongoDB installed on your system. (If you dont wan't mongodb, run npm start, which will use `server/config/config.global.js`)
+  
+
+### Requirements 
+
+ * NodeJS
+ * NPM
+
+Make sure you already have NodeJS/NPM installed. MongoDB installed on your system in the case you desired to use the Express MongoDB Integration provided.s
