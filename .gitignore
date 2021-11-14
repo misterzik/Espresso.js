@@ -62,3 +62,4 @@ package-lock.json
 # Local Development
 public/assets/src/app.bundle.js
 public/assets/src/vendor.bundle.js
+.npmrc
