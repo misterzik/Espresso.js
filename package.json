@@ -1,6 +1,6 @@
 {
     "name": "@misterzik/espressojs",
-    "version": "3.1.4",
+    "version": "3.1.5",
     "description": "EspressoJS / Espresso It's your one-stop Express Configuration Boiler-Plate, plug-and-play configuration to get you started with hosting your front-end projects. This is a barebones configuration with the option to scale up using MongoDB.",
     "main": "espresso.js",
     "scripts": {
@@ -16,6 +16,9 @@
         "url": "git+https://github.com/misterzik/Espresso.js.git"
     },
     "keywords": [
+        "espressojs",
+        "espresso js",
+        "espresso",
         "express",
         "node-express",
         "express-api",
@@ -32,15 +35,15 @@
     "homepage": "https://github.com/misterzik/Espresso.js#readme",
     "dependencies": {
         "bluebird": "^3.7.2",
-        "body-parser": "^1.19.0",
         "compression": "^1.7.4",
         "cors": "^2.8.5",
         "debug": "^4.1.1",
         "express": "^4.17.1",
         "finalhandler": "^1.1.2",
-        "mongoose": "^5.10.0",
+        "mongoose": "^5.13.13",
         "serve-favicon": "^2.5.0",
-        "serve-static": "^1.14.1"
+        "serve-static": "^1.14.1",
+        "dotenv": "^10.0.0"
     },
     "engines": {
         "node": ">= 0.10.0"

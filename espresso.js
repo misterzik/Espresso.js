@@ -10,6 +10,7 @@
 const express = require('express');
 const app = express();
 const cfg = require('./server');
+require("dotenv").config(); 
 
 const _path = require('path'),
     _cors = require('cors'),
@@ -23,9 +24,22 @@ const _static = require('serve-static'),
 const mongoose = require('mongoose');
 
 if(cfg.mongo_isEnabled == true){
-    const url = `mongodb://${cfg.mongo.uri}:${cfg.mongo.port}/${cfg.mongo.db}`;
+    let hasPort, hasUri;
+    if(cfg.mongo.port == ''){
+        hasPort = '/'
+    } else {
+        hasPort = ':' + cfg.mongo.port + '/'
+    }
+    if(cfg.mongo.uri == ''){
+        hasUri = process.env.MONGO_URI;
+    } else {
+        hasUri = cfg.mongo.uri
+    }
+
+    const url = `mongodb+srv://${hasUri + hasPort + cfg.mongo.db}`;
     mongoose.Promise = global.Promise;
     mongoose.connect(url, {
+            useUnifiedTopology: true,
             useNewUrlParser: true,
             promiseLibrary: require('bluebird')
         })

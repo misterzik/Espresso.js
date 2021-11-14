@@ -36,7 +36,7 @@
   * `server/config/config.production.js`
   * `server/config/config.development.js`
 
-  Let's run the demo from the files included, we can start by bundling the demo javascript located `/public/assets/js/` by typing on your terminal `npm run webpack-dev`this will bundle the javascript needed for the `index.html`.
+  Let's run the demo from the files included, we can start by bundling the demo JavaScript located `/public/assets/js/` by typing on your terminal `npm run webpack-dev`this will bundle the JavaScript needed for the `index.html`.
 
 * Run project Without MongoDB, by running `npm start`, If you would like to run instance with MongoDB run `npm run dev` or `npm run prod` .
  

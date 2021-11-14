@@ -5,6 +5,7 @@
  * Configuration workflow
  */
 
+require("dotenv").config(); 
 const env = process.env.NODE_ENV || 'development'
 const cfg = require('./config/config.' + env);
 
