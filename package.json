@@ -1,14 +1,14 @@
 {
     "name": "@misterzik/espressojs",
-    "version": "3.1.0",
-    "description": "EspressoJS, Express Server Bare-Bones with some Beans for fiber. This ain't Goya!",
+    "version": "3.1.1",
+    "description": "EspressoJS / Espresso It's your one-stop Express Configuration Boiler-Plate, plug-and-play configuration to get you started with hosting your front-end projects. This is barebones configuration with the option to scale up using mongoDB.(Es)presso It's your one-stop Express Configuration Boiler-Plate, plug-and-play configuration to get you started with hosting your front-end projects. This is barebones configuration with the option to scale up using mongoDB.",
     "main": "espresso.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "start": "cross-env NODE_ENV=global node espresso.js",
-        "esp": "cross-env NODE_ENV=development node espresso.js",
-        "bu-dev": "webpack --mode development --display-modules",
-        "bu-prod": "webpack --mode production --display-modules"
+        "dev": "cross-env NODE_ENV=development node espresso.js",
+        "webpack-dev": "webpack --mode development",
+        "webpack-prod": "webpack --mode production"
     },
     "repository": {
         "type": "git",
@@ -23,7 +23,7 @@
         "express",
         "nodejs"
     ],
-    "author": "Nick <MisterZik> Rodriguez",
+    "author": "MisterZik",
     "license": "MIT",
     "bugs": {
         "url": "https://github.com/misterzik/Espresso.js/issues"
@@ -45,17 +45,17 @@
         "node": ">= 0.10.0"
     },
     "devDependencies": {
-        "@babel/core": "^7.11.1",
+        "@babel/core": "^7.16.0",
         "amd-define-factory-patcher-loader": "^1.0.0",
-        "babel-loader": "^8.1.0",
+        "babel-loader": "^8.2.3",
         "babel-preset-env": "^1.7.0",
-        "cross-env": "^7.0.2",
-        "jquery": "^3.5.1",
-        "terser-webpack-plugin": "^4.1.0",
-        "webpack": "^4.44.1",
-        "webpack-cli": "^3.3.12"
+        "cross-env": "^7.0.3",
+        "jquery": "^3.6.0",
+        "terser-webpack-plugin": "^4.2.3",
+        "webpack": "^5.64.0",
+        "webpack-cli": "^4.9.1"
     },
-    "publishConfig": { 
-        "registry": "https://npm.pkg.github.com/" 
+    "publishConfig": {
+        "registry": "https://npm.pkg.github.com/"
     }
 }

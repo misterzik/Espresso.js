@@ -19,11 +19,11 @@ const config = {
     context: path.resolve(__dirname, "./public/assets/js/jQuery"),
     entry: {
         app: './index.js',
-        vendor: './two-binding.js'
+        vendor: './other-file.js'
     },
     output: {
         filename: '[name].bundle.js',
-        path: path.resolve(__dirname, './public/assets/js/src')
+        path: path.resolve(__dirname, './public/assets/src')
 
     },
     plugins: [
