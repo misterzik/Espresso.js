@@ -8,6 +8,7 @@
  */
 
  module.exports = (app)=> {
+    const cfg = require('./../../server');
     const path = require('path');
     const api = require('./api');
     
@@ -15,7 +16,10 @@
         res.sendFile('index.html', { root: path.join(__dirname, '../public') });
     });
     
-    app.use('/api', api);
+    if(cfg.swapi_isEnabled == true){
+        app.use('/api', api);
+    }
+
     require('./db')(app); 
     require('../global.message')(app);
 
