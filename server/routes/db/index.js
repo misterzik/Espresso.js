@@ -9,8 +9,8 @@
 
 module.exports = (app) => {
     const clientRouter = require('../../controllers/client/client.controller.js');
-    const preFix = '/api/clients/';
-    const url = preFix;
+    const preFix = '/api/clients/',
+    url = preFix;
 
     /**
      * Create
