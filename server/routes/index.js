@@ -8,11 +8,11 @@
  */
 
  module.exports = (app)=> {
-    const cfg = require('./../../server');
-    const path = require('path');
-    const api = require('./api');
+    const cfg = require('./../../server'),
+    path = require('path'),
+    api = require('./api');
     
-    app.get('/', function(req, res, next) {
+    app.get('/', function(res) {
         res.sendFile('index.html', { root: path.join(__dirname, '../public') });
     });
     
@@ -21,12 +21,10 @@
     }
 
     require('./db')(app); 
-    require('../global.message')(app);
+    require('./../utils/global.message')(app);
 
-    app.use((req, res, next) => {
-        let err = new Error('404 - Not Found');
-        err.status = 404;
-        next(err);
+    app.use(function (req, res, next) {
+        res.status(404).send("404 - Sorry can't find that!")
     })
 }
 
