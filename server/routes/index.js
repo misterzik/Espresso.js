@@ -13,7 +13,7 @@ module.exports = (app) => {
     api = require("./api");
 
   app.get("/", function (res) {
-    res.sendFile("index.html", { root: path.join(__dirname, "../public") });
+    res.sendFile("index.html", { root: path.join("./public") });
   });
 
   if (cfg.swapi_isEnabled == true) {

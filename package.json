@@ -1,8 +1,8 @@
 {
     "name": "@misterzik/espressojs",
-    "version": "3.1.10",
+    "version": "3.1.11",
     "description": "EspressoJS / Espresso It's your one-stop Express Configuration Boiler-Plate, plug-and-play configuration to get you started with hosting your front-end projects. This is a barebones configuration with the option to scale up using MongoDB.",
-    "main": "espresso.js",
+    "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\"",
         "start": "node cli run",

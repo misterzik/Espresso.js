@@ -18,14 +18,14 @@ config.port = "8080";
 config.mongo_isEnabled = false;
 config.mongo = {};
 config.mongo.uri = process.env.MONGO_URI || "localhost";
-config.mongo.port = "";
-config.mongo.db = "";
+config.mongo.port = process.env.MONGO_URI_PORT ||"";
+config.mongo.db = process.env.MONGO_URI_DB ||"";
 
 // Settings :: SWAPI Sample
 
 config.swapi_isEnabled = true;
 config.swapi = {};
-config.swapi.uri = "https://swapi.dev/api/";
+config.swapi.uri = process.env.API_URI || "https://swapi.dev/api/";
 config.swapi.configs = {
   method: "GET",
   url: "",
