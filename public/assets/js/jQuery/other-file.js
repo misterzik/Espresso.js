@@ -4,6 +4,6 @@
  * jQuery Unminified File
  */
 
-$(document).ready(function() {
-    console.log("EspressoJS Second JS Sample!");
+$(document).ready(function () {
+  console.log("EspressoJS Second JS Sample!");
 });

@@ -8,32 +8,32 @@
  */
 
 module.exports = (app) => {
-    const clientRouter = require('../../controllers/client/client.controller.js');
-    const preFix = '/api/clients/',
+  const clientRouter = require("../../controllers/client/client.controller.js");
+  const preFix = "/api/clients/",
     url = preFix;
 
-    /**
-     * Create
-     */
-    app.post(url, clientRouter.create);
+  /**
+   * Create
+   */
+  app.post(url, clientRouter.create);
 
-    /**
-     * Get All
-     */
-    app.get(url, clientRouter.findAll);
+  /**
+   * Get All
+   */
+  app.get(url, clientRouter.findAll);
 
-    /**
-     * Retrieve a single Note with clientId
-     */
-    app.get(url + ':clientId', clientRouter.findOne);
+  /**
+   * Retrieve a single Note with clientId
+   */
+  app.get(url + ":clientId", clientRouter.findOne);
 
-    /**
-     * Update a Note with clientId
-     */
-    app.put(url + ':clientId', clientRouter.update);
+  /**
+   * Update a Note with clientId
+   */
+  app.put(url + ":clientId", clientRouter.update);
 
-    /**
-     * Delete a Note with clientId
-     */
-    app.delete(url + ':clientId', clientRouter.delete);
-}
+  /**
+   * Delete a Note with clientId
+   */
+  app.delete(url + ":clientId", clientRouter.delete);
+};
