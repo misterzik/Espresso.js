@@ -57,10 +57,10 @@ app.use(_compr());
 app.use(_cors());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-app.use(_favicon(_path.join(__dirname, "public", "favicon.ico")));
+app.use(_favicon(_path.join(__dirname, "./public", "favicon.ico")));
 
 app.use(
-  _static(_path.join(__dirname, "public"), {
+  _static(_path.join("./public"), {
     maxAge: "1d",
     setHeaders: setCustomCacheControl,
     etag: true,

@@ -60,6 +60,6 @@ typings/
 .vscode
 
 # Local Development
-public/assets/src/app.bundle.js
-public/assets/src/vendor.bundle.js
+public
+demo
 .npmrc
