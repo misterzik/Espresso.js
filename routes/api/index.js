@@ -7,13 +7,13 @@
  */
 
 const express = require("express");
-const cfg = require("./../../../server");
-const router = express.Router();
 const axios = require("axios");
+const router = express.Router();
+const configuration = require("../../server");
 
 const getAPI = (req, res) => {
   axios
-    .get(cfg.swapi.uri, cfg.swapi.configs)
+    .get(configuration.swapi.uri, configuration.swapi.configs)
     .then(function (response) {
       if (response.status == 200) {
         res.json(response.data);
@@ -26,7 +26,7 @@ const getAPI = (req, res) => {
 
 const getItem = (req, res, params) => {
   axios
-    .get(cfg.swapi.uri + "/" + params, cfg.swapi.configs)
+    .get(configuration.swapi.uri + "/" + params, configuration.swapi.configs)
     .then(function (response) {
       if (response.status == 200) {
         res.json(response.data);
@@ -39,7 +39,10 @@ const getItem = (req, res, params) => {
 
 const getItemId = (req, res, params, paramsId) => {
   axios
-    .get(cfg.swapi.uri + params + "/" + paramsId + "/", cfg.swapi.configs)
+    .get(
+      configuration.swapi.uri + params + "/" + paramsId + "/",
+      configuration.swapi.configs
+    )
     .then(function (response) {
       if (response.status == 200) {
         res.json(response.data);
@@ -49,15 +52,12 @@ const getItemId = (req, res, params, paramsId) => {
     })
     .catch((err) => res.send(err));
 };
-
 router.get("/v1/", (req, res) => {
   getAPI(req, res);
 });
-
 router.get("/v1/:item", (req, res, next) => {
   getItem(req, res, req.params.item);
 });
-
 router.get("/v1/:item/:itemId", (req, res, next) => {
   getItemId(req, res, req.params.item, req.params.itemId);
 });
