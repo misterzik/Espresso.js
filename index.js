@@ -8,25 +8,28 @@
  */
 
 const fs = require("fs");
+require("dotenv").config();
 const express = require("express");
 const app = express();
 const cfg = require("./server");
-
-require("dotenv").config();
-
 const configBuffer = fs.readFileSync("./config.json"),
   configJSON = configBuffer.toString(),
   configData = JSON.parse(configJSON);
 
-const _path = require("path"),
-  _cors = require("cors"),
-  _compr = require("compression"),
-  _favicon = require("serve-favicon"),
-  _static = require("serve-static"),
-  _port = configData.port || process.env.PORT || cfg.port,
-  _routes = require("./server/routes/index");
+const Path = require("path"),
+  Cors = require("cors"),
+  Compression = require("compression"),
+  Favicon = require("serve-favicon"),
+  Static = require("serve-static"),
+  Port = configData.port || process.env.PORT || cfg.port,
+  Routes = require("./routes/index");
 
 const mongoose = require("mongoose");
+const setCustomCacheControl = (res, path) => {
+  if (Static.mime.lookup(path) === "text/html") {
+    res.setHeader("Cache-Control", "public, max-age=0");
+  }
+};
 
 if (cfg.mongo_isEnabled == true) {
   let hasPort, hasUri;
@@ -40,7 +43,6 @@ if (cfg.mongo_isEnabled == true) {
   } else {
     hasUri = cfg.mongo.uri;
   }
-
   const url = `mongodb+srv://${hasUri + hasPort + cfg.mongo.db}`;
   mongoose.Promise = global.Promise;
   mongoose
@@ -53,14 +55,13 @@ if (cfg.mongo_isEnabled == true) {
     .catch((err) => console.error(err));
 }
 
-app.use(_compr());
-app.use(_cors());
+app.use(Compression());
+app.use(Cors());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-app.use(_favicon(_path.join(__dirname, "./public", "favicon.ico")));
-
+app.use(Favicon(Path.join("./public", "favicon.ico")));
 app.use(
-  _static(_path.join("./public"), {
+  Static(Path.join("./public"), {
     maxAge: "1d",
     setHeaders: setCustomCacheControl,
     etag: true,
@@ -68,13 +69,6 @@ app.use(
   })
 );
 
-function setCustomCacheControl(res, path) {
-  if (_static.mime.lookup(path) === "text/html") {
-    res.setHeader("Cache-Control", "public, max-age=0");
-  }
-}
-
-_routes(app);
-app.listen(_port);
-
+Routes(app);
+app.listen(Port);
 module.exports = app;
