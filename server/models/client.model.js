@@ -5,15 +5,15 @@
  * MongoDB Schema Example
  */
 
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const clientSchema = mongoose.Schema(
-    {
-        name: String,
-        email: String,
-        location: String
-    }, 
-    {
-        timestamps: true
-    }
+  {
+    name: String,
+    email: String,
+    location: String,
+  },
+  {
+    timestamps: true,
+  }
 );
-module.exports = mongoose.model('clients', clientSchema);
+module.exports = mongoose.model("clients", clientSchema);
