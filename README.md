@@ -1,4 +1,4 @@
-![Espresso](https://raw.githubusercontent.com/misterzik/Espresso.js/main/Espresso-Logo.png)
+![Espresso](https://raw.githubusercontent.com/misterzik/Espresso.js/main/espresso-logo.png)
 
 ## EspressoJS / Espresso
 

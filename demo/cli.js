@@ -1,0 +1,1 @@
+require('@misterzik/espressojs/cli')
