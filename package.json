@@ -1,7 +1,7 @@
 {
     "name": "@misterzik/espressojs",
-    "version": "3.1.14",
-    "description": "EspressoJS / Espresso It's your one-stop Express Configuration Boiler-Plate, plug-and-play configuration to get you started with hosting your front-end projects. This is a barebones configuration with the option to scale up using MongoDB.",
+    "version": "3.1.15",
+    "description": "EspressoJS / Espresso is your one-stop Express Configuration starting point or boilerplate. Simple, and unopinionated, EspressoJS plug-and-play configurations are based on Express. Espresso will get you started with an Express instance in seconds.",
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\"",
