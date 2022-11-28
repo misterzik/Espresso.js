@@ -1,6 +1,6 @@
 {
     "name": "@misterzik/espressojs",
-    "version": "3.1.15",
+    "version": "3.1.16",
     "description": "EspressoJS / Espresso is your one-stop Express Configuration starting point or boilerplate. Simple, and unopinionated, EspressoJS plug-and-play configurations are based on Express. Espresso will get you started with an Express instance in seconds.",
     "main": "index.js",
     "scripts": {

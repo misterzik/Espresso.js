@@ -1,1 +1,8 @@
-{ "instance": "global", "port": 8080 }
+{
+  "instance": "global",
+  "port": 8080,
+  "hostname": "",
+  "mongoDB": false,
+  "API": false,
+  "API_OBJ_URL": ""
+}

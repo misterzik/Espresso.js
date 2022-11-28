@@ -1,10 +1,11 @@
-/**
- * EspressoJS - Hippie's Fav Server Plate
- * Powered by Vimedev.com Labs
- * ----------------
+/*
+ * _|      _|  _|      _|  _|_|_|
+ * _|      _|  _|_|  _|_|  _|    _|
+ * _|      _|  _|  _|  _|  _|    _|
+ *   _|  _|    _|      _|  _|    _|
+ *     _|      _|      _|  _|_|_|
  * MongoDB Schema Example
  */
-
 const mongoose = require("mongoose");
 const clientSchema = mongoose.Schema(
   {

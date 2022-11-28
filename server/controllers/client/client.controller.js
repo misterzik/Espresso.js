@@ -1,10 +1,12 @@
-/**
- * EspressoJS - Hippie's Fav Server Plate
- * Powered by Vimedev.com Labs
- * ---
- * MongoDB Client Controller - WIP
+/*
+ * _|      _|  _|      _|  _|_|_|
+ * _|      _|  _|_|  _|_|  _|    _|
+ * _|      _|  _|  _|  _|  _|    _|
+ *   _|  _|    _|      _|  _|    _|
+ *     _|      _|      _|  _|_|_|
+ * EspressoJS - EspressoJS / Espresso is your one-stop 
+ * Express Configuration starting point
  */
-
 const Client = require("../../models/client.model.js");
 
 /**

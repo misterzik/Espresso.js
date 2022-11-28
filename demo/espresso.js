@@ -1,13 +1,11 @@
 /**
- * EspressoJS - Hippie's Favorite Express Server
- * Powered by Vimedev.com Labs
- * ----
- * Required Dependencies & Depencies
- * ---
+ * EspressoJS / Espresso is your one-stop 
+ * Express Configuration starting point
  */
 require("@misterzik/espressojs");
 const configuration = require("@misterzik/espressojs/server");
-// Create's Extra Sample Routers for API
+
+// Create's Sample Routers for API
 const router = require("@misterzik/espressojs/routes/api");
 const axios = require("axios");
 const getAPI = (req, res) => {

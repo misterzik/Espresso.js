@@ -1,10 +1,11 @@
 /*
- * EspressoJS - Hippie's Favy Server Plate
- * Powered by Vimedev.com Labs
- * ----------------
- * Get Artsy! - CLI
+ * _|      _|  _|      _|  _|_|_|
+ * _|      _|  _|_|  _|_|  _|    _|
+ * _|      _|  _|  _|  _|  _|    _|
+ *   _|  _|    _|      _|  _|    _|
+ *     _|      _|      _|  _|_|_|
+ * EspressoJS - CLI
  */
-
 const fs = require("fs");
 const { exec } = require("child_process");
 const { string, number } = require("yargs");

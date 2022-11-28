@@ -1,10 +1,11 @@
 /*
- * EspressoJS - Hippie's Favy Server Plate
- * Powered by Vimedev.com Labs
- * ----------------
- * Get Artsy! - Global Message for Non-CLI
+ * _|      _|  _|      _|  _|_|_|
+ * _|      _|  _|_|  _|_|  _|    _|
+ * _|      _|  _|  _|  _|  _|    _|
+ *   _|  _|    _|      _|  _|    _|
+ *     _|      _|      _|  _|_|_|
+ * EspressoJS - INIT
  */
-
 module.exports = (app) => {
   const fs = require("fs");
   const cfg = require("./../");
