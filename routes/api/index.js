@@ -1,9 +1,10 @@
-/**
- * EspressoJS - Hippie's Fav Server Plate
- * Powered by Vimedev.com Labs
- * ----
- * API Routers
- * ---
+/*
+ * _|      _|  _|      _|  _|_|_|
+ * _|      _|  _|_|  _|_|  _|    _|
+ * _|      _|  _|  _|  _|  _|    _|
+ *   _|  _|    _|      _|  _|    _|
+ *     _|      _|      _|  _|_|_|
+ * EspressoJS - API Routers
  */
 
 const express = require("express");

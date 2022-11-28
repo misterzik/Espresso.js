@@ -6,7 +6,7 @@
 
 ## Getting Started
 
-- Download [latest release](https://github.com/misterzik/Espresso.js/packages/364567)
+- Download [latest release](https://github.com/misterzik/Espresso.js/releases)
 
   `npm install --save @misterzik/espressojs`
 
@@ -14,8 +14,11 @@
 
   ```
   {
-    "instance":"global",
-    "port":8080
+    "instance": "production",
+    "hostname": "domain.com",
+    "port": 8080,
+    "mongoDB": false,
+    "swapi": false
   }
   ```
 
@@ -26,7 +29,9 @@
   MONGO_URI_PORT=27017
   MONGO_URI_DB=clients
   API_URI_ON=FALSE
-  API_URI=
+  API_URI=""
+  API_METHOD="GET"
+  API_OBJ_URL=""
   PORT=8080
   ```
 
@@ -61,6 +66,8 @@
 - Stop server by pressing `CTRL + C` to terminated the Espresso process.
 
 ### Requirements
+
+Installed prior using Espresso.JS
 
 - NodeJS
 - NPM

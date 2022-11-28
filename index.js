@@ -1,7 +1,10 @@
-/**
- * EspressoJS - Hippie's Fav Server Plate
- * Powered by Vimedev.com Labs
- * ----------------
+/*
+ * _|      _|  _|      _|  _|_|_|
+ * _|      _|  _|_|  _|_|  _|    _|
+ * _|      _|  _|  _|  _|  _|    _|
+ *   _|  _|    _|      _|  _|    _|
+ *     _|      _|      _|  _|_|_|
+ * EspressoJS - EspressoJS / Espresso 
  * Express Plug & Play Server
  * -----------------
  * @param {*} app - EspressoJS by Vimedev.com Labs

@@ -1,11 +1,12 @@
-/**
- * EspressoJS - Hippie's Fav Server Plate
- * Powered by Vimedev.com Labs
- * ---
- * Client Model - WIP
- * -- 
+/*
+ * _|      _|  _|      _|  _|_|_|
+ * _|      _|  _|_|  _|_|  _|    _|
+ * _|      _|  _|  _|  _|  _|    _|
+ *   _|  _|    _|      _|  _|    _|
+ *     _|      _|      _|  _|_|_|
+ * EspressoJS - Client Model
+ * --
  * Basic Clients Collection - API CRUD
- * ---
  * @param {*} app - Vimedev.com Labs
  */
 
