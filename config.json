@@ -1,8 +1,20 @@
 {
-  "instance": "global",
+  "instance": "development",
   "port": 8080,
   "hostname": "",
-  "mongoDB": false,
-  "API": false,
-  "API_OBJ_URL": ""
+  "mongoDB": {
+    "enabled": false,
+    "port": null,
+    "uri": "",
+    "instance": "database"
+  },
+  "api": {
+    "enabled": false,
+    "uri": "https://swapi.dev/api/people/",
+    "url": "",
+    "method": "GET",
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
 }

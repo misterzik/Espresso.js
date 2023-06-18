@@ -12,29 +12,23 @@
 
 module.exports = (app) => {
   const clientRouter = require("../../server/controllers/client/client.controller.js");
-  const preFix = "/api/clients/",
-    url = preFix;
-
+  const url = "/api/clients/";
   /**
    * Create
    */
   app.post(url, clientRouter.create);
-
   /**
    * Get All
    */
   app.get(url, clientRouter.findAll);
-
   /**
    * Retrieve a single Note with clientId
    */
   app.get(url + ":clientId", clientRouter.findOne);
-
   /**
    * Update a Note with clientId
    */
   app.put(url + ":clientId", clientRouter.update);
-
   /**
    * Delete a Note with clientId
    */

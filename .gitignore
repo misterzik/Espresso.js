@@ -60,6 +60,6 @@ typings/
 .vscode
 
 # Local Development
-# public
 # demo
+public
 .npmrc

@@ -2,7 +2,9 @@
 
 ## EspressoJS / Espresso
 
-### EspressoJS / Espresso is your one-stop Express Configuration starting point or boilerplate. Simple, and unopinionated, EspressoJS plug-and-play configurations are based on Express. Espresso will get you started with an Express instance in seconds.
+### Introducing Espresso.JS, your ultimate Express configuration starting point and boilerplate. With its simplicity and lack of opinionation, EspressoJS offers plug-and-play configurations built on top of Express.
+
+### Whether you're a beginner or an experienced developer, EspressoJS will have you up and running with an Express instance in a matter of seconds. Say goodbye to tedious setup and hello to streamlined development with EspressoJS.
 
 ## Getting Started
 
@@ -14,25 +16,32 @@
 
   ```
   {
-    "instance": "production",
-    "hostname": "domain.com",
+    "instance": "development",
     "port": 8080,
-    "mongoDB": false,
-    "swapi": false
+    "hostname": "",
+    "mongoDB": {
+      "enabled": false,
+      "uri": "",
+      "instance": "database"
+    },
+    "api": {
+      "enabled": false,
+      "uri": "https://swapi.dev/api/people/",
+      "url": "",
+      "method": "GET",
+      "headers": {
+        "Content-Type": "application/json"
+      }
+    }
   }
   ```
 
 - Create `.env` if you don't want to use config. A mix is possible.
 
   ```
-  MONGO_URI=USER:PASSWORD@DOMAIN.mongodb.net
-  MONGO_URI_PORT=27017
-  MONGO_URI_DB=clients
-  API_URI_ON=FALSE
-  API_URI=""
-  API_METHOD="GET"
-  API_OBJ_URL=""
-  PORT=8080
+  MONGO_USER=USER
+  MONGO_TOKEN=PASSWORD
+  API_TOKEN=APITOKEN
   ```
 
 - Create `espresso.js` and add the following requirements to call the packages.
@@ -52,14 +61,13 @@
   node cli run
   ```
 
-
 ### Structured Files
 
-  Pre-made Configurations:
+Pre-made Configurations:
 
-  - `server/config/config.global.js`
-  - `server/config/config.production.js`
-  - `server/config/config.development.js`
+- `server/config/config.global.js`
+- `server/config/config.production.js`
+- `server/config/config.development.js`
 
 ### Commands
 

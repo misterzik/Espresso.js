@@ -10,13 +10,13 @@
  */
 
 module.exports = (app) => {
-  const configuration = require("../server"),
-    Path = require("path"),
-    api = require("./api");
+  const Path = require("path");
+  const configuration = require("../server");
+  const api = require("./api");
   app.get("/", function (res) {
     res.sendFile("index.html", { root: Path.join("./public") });
   });
-  if (configuration.swapi_isEnabled == true) {
+  if (configuration.api_isEnabled === true) {
     app.use("/api", api);
   }
   require("./db")(app);

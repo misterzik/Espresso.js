@@ -4,17 +4,17 @@
  * _|      _|  _|  _|  _|  _|    _|
  *   _|  _|    _|      _|  _|    _|
  *     _|      _|      _|  _|_|_|
- * EspressoJS - EspressoJS / Espresso is your one-stop 
+ * EspressoJS - EspressoJS / Espresso is your one-stop
  * Express Configuration starting point
  */
+
 const Client = require("../../models/client.model.js");
 
 /**
- * Retrieve and return all notes from the documents.
- * @param {*} req - Request data from
- * @param {*} res - Response from call
+ * Retrieve and return all clients from the collection.
+ * @param {*} req - Request data
+ * @param {*} res - Response data
  */
-
 exports.findAll = (req, res) => {
   Client.find()
     .then((clients) => {
@@ -22,38 +22,29 @@ exports.findAll = (req, res) => {
     })
     .catch((err) => {
       res.status(500).send({
-        message:
-          err.message || "Error occurred while retrieving your collections.",
+        message: err.message || "Error occurred while retrieving clients.",
       });
     });
 };
 
 /**
- * Create and Save a new Client('s) to Collection
- * @param {*} req
- * @param {*} res
+ * Create and save a new client to the collection.
+ * @param {*} req - Request data
+ * @param {*} res - Response data
  */
-
 exports.create = (req, res) => {
   if (!req.body.email) {
     return res.status(400).send({
-      message: "E-mail cannot be an empty field.",
+      message: "Email cannot be an empty field.",
     });
   }
 
-  /**
-   *  Client Body to be created after
-   *  Request byPass of cannot be null
-   */
   const client = new Client({
     name: req.body.name || "John Doe",
     email: req.body.email,
     location: req.body.location,
   });
 
-  /**
-   * Save Client in the document collection
-   */
   client
     .save()
     .then((data) => {
@@ -61,23 +52,22 @@ exports.create = (req, res) => {
     })
     .catch((err) => {
       res.status(500).send({
-        message: err.message || "Error occurred while creating the Note.",
+        message: err.message || "Error occurred while creating the client.",
       });
     });
 };
 
 /**
- * Find a single client with a clientId
- * @param {*} req
- * @param {*} res
+ * Find a single client by clientId.
+ * @param {*} req - Request data
+ * @param {*} res - Response data
  */
 exports.findOne = (req, res) => {
   Client.findById(req.params.clientId)
     .then((client) => {
       if (!client) {
         return res.status(404).send({
-          message:
-            "Client not found with the following id " + req.params.clientId,
+          message: "Client not found with id " + req.params.clientId,
         });
       }
       res.send(client);
@@ -95,10 +85,9 @@ exports.findOne = (req, res) => {
 };
 
 /**
- * Update a client('s) identified by the
- * clientId in the request collection
- * @param {*} req
- * @param {*} res
+ * Update a client identified by clientId.
+ * @param {*} req - Request data
+ * @param {*} res - Response data
  */
 exports.update = (req, res) => {
   if (!req.body.email) {
@@ -107,10 +96,6 @@ exports.update = (req, res) => {
     });
   }
 
-  /**
-   * Find client and update it with the request body
-   * depending on _id
-   */
   Client.findByIdAndUpdate(
     req.params.clientId,
     {
@@ -120,13 +105,13 @@ exports.update = (req, res) => {
     },
     { new: true }
   )
-    .then((clients) => {
-      if (!clients) {
+    .then((client) => {
+      if (!client) {
         return res.status(404).send({
           message: "Client not found with id " + req.params.clientId,
         });
       }
-      res.send(clients);
+      res.send(client);
     })
     .catch((err) => {
       if (err.kind === "ObjectId") {
@@ -141,14 +126,14 @@ exports.update = (req, res) => {
 };
 
 /**
- * Delete a client with the specified clientId in the request
- * @param {*} req
- * @param {*} res
+ * Delete a client by clientId.
+ * @param {*} req - Request data
+ * @param {*} res - Response data
  */
 exports.delete = (req, res) => {
   Client.findByIdAndRemove(req.params.clientId)
-    .then((Client) => {
-      if (!note) {
+    .then((client) => {
+      if (!client) {
         return res.status(404).send({
           message: "Client not found with id " + req.params.clientId,
         });
@@ -162,7 +147,7 @@ exports.delete = (req, res) => {
         });
       }
       return res.status(500).send({
-        message: "Could not delete Client with id " + req.params.clientId,
+        message: "Could not delete client with id " + req.params.clientId,
       });
     });
 };

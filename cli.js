@@ -1,1 +1,2 @@
-require("./server/utils/espresso-cli");
+const cli = require("./server/utils/espresso-cli");
+module.exports = cli;

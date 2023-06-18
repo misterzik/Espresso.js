@@ -14,7 +14,7 @@ const configuration = require("../../server");
 
 const getAPI = (req, res) => {
   axios
-    .get(configuration.swapi.uri, configuration.swapi.configs)
+    .get(configuration.api.uri, configuration.api.configs)
     .then(function (response) {
       if (response.status == 200) {
         res.json(response.data);
@@ -27,11 +27,11 @@ const getAPI = (req, res) => {
 
 const getItem = (req, res, params) => {
   axios
-    .get(configuration.swapi.uri + "/" + params, configuration.swapi.configs)
+    .get(configuration.api.uri + "/" + params, configuration.api.configs)
     .then(function (response) {
-      if (response.status == 200) {
+      if (response.status === 200) {
         res.json(response.data);
-      } else if (response.status == 400) {
+      } else if (response.status === 400) {
         res.json({ message: "400" });
       }
     })
@@ -41,13 +41,13 @@ const getItem = (req, res, params) => {
 const getItemId = (req, res, params, paramsId) => {
   axios
     .get(
-      configuration.swapi.uri + params + "/" + paramsId + "/",
-      configuration.swapi.configs
+      configuration.api.uri + params + "/" + paramsId + "/",
+      configuration.api.configs
     )
     .then(function (response) {
-      if (response.status == 200) {
+      if (response.status === 200) {
         res.json(response.data);
-      } else if (response.status == 400) {
+      } else if (response.status === 400) {
         res.json({ message: "400" });
       }
     })
