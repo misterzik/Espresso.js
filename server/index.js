@@ -6,10 +6,9 @@
  *     _|      _|      _|  _|_|_|
  * EspressoJS
  */
-const fs = require("fs");
 require("dotenv").config();
-const configBuffer = fs.readFileSync("./config.json"),
-  data = JSON.parse(configBuffer.toString());
-const env = data.instance || process.env.NODE_ENV || "development";
-const cfg = require("./config/config." + env);
+const { readConfigFile } = require("./utils/config.utils");
+const data = readConfigFile();
+const env = data.instance || "development";
+const cfg = require("./config/" + env);
 module.exports = cfg;

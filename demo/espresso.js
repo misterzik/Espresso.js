@@ -10,7 +10,7 @@ const router = require("@misterzik/espressojs/routes/api");
 const axios = require("axios");
 const getAPI = (req, res) => {
   axios
-    .get(configuration.swapi.uri, configuration.swapi.configs)
+    .get(configuration.api.uri, configuration.api.configs)
     .then(function (response) {
       if (response.status == 200) {
         res.json(response.data);

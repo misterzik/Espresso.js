@@ -4,49 +4,47 @@
  * _|      _|  _|  _|  _|  _|    _|
  *   _|  _|    _|      _|  _|    _|
  *     _|      _|      _|  _|_|_|
- * EspressoJS - EspressoJS / Espresso 
+ * EspressoJS - EspressoJS / Espresso
  * Express Plug & Play Server
  * -----------------
  * @param {*} app - EspressoJS by Vimedev.com Labs
  */
-
-const fs = require("fs");
 require("dotenv").config();
 const express = require("express");
 const app = express();
 const cfg = require("./server");
-const configBuffer = fs.readFileSync("./config.json"),
-  configJSON = configBuffer.toString(),
-  configData = JSON.parse(configJSON);
+const { readConfigFile } = require("./server/utils/config.utils");
+const configData = readConfigFile();
 
-const Path = require("path"),
-  Cors = require("cors"),
-  Compression = require("compression"),
-  Favicon = require("serve-favicon"),
-  Static = require("serve-static"),
-  Port = configData.port || process.env.PORT || cfg.port,
-  Routes = require("./routes/index");
-
+const Path = require("path");
+const Cors = require("cors");
+const Compression = require("compression");
+const Favicon = require("serve-favicon");
+const Static = require("serve-static");
 const mongoose = require("mongoose");
-const setCustomCacheControl = (res, path) => {
-  if (Static.mime.lookup(path) === "text/html") {
-    res.setHeader("Cache-Control", "public, max-age=0");
-  }
-};
+const Routes = require("./routes/index");
 
-if (cfg.mongo_isEnabled == true) {
-  let hasPort, hasUri;
-  if (cfg.mongo.port == "") {
-    hasPort = "/";
-  } else {
-    hasPort = ":" + cfg.mongo.port + "/";
-  }
-  if (cfg.mongo.uri == "") {
-    hasUri = process.env.MONGO_URI;
-  } else {
-    hasUri = cfg.mongo.uri;
-  }
-  const url = `mongodb+srv://${hasUri + hasPort + cfg.mongo.db}`;
+const Port = configData.port || cfg.port;
+const mongoConfig = configData.mongo;
+
+if (configData.mongo_isEnabled) {
+  const {
+    uri: mongoUri = configData.mongo.uri || "",
+    port: mongoPort = configData.mongo.port || "",
+    db: mongoDb = configData.mongo.db || "",
+  } = mongoConfig;
+  const hasPort = mongoPort ? `:${mongoPort}/` : "/";
+  const url = `mongodb+srv://${
+    process.env.MONGO_USER +
+    ":" +
+    process.env.MONGO_TOKEN +
+    "@" +
+    mongoUri 
+    +
+    hasPort +
+    mongoDb
+  }`;
+
   mongoose.Promise = global.Promise;
   mongoose
     .connect(url, {
@@ -54,9 +52,15 @@ if (cfg.mongo_isEnabled == true) {
       useNewUrlParser: true,
       promiseLibrary: require("bluebird"),
     })
-    .then(() => console.log(":: DB Connection succesful ::"))
+    .then(() => console.log(":: DB Connection successful ::"))
     .catch((err) => console.error(err));
 }
+
+const setCustomCacheControl = (res, path) => {
+  if (Static.mime.lookup(path) === "text/html") {
+    res.setHeader("Cache-Control", "public, max-age=0");
+  }
+};
 
 app.use(Compression());
 app.use(Cors());
@@ -73,5 +77,8 @@ app.use(
 );
 
 Routes(app);
-app.listen(Port);
+app.listen(Port, () => {
+  console.log(`Server is running on port ${Port}`);
+});
+
 module.exports = app;
