@@ -10,19 +10,28 @@
  * @param {*} app - Vimedev.com Labs
  */
 
-const clientController = require("../../server/controllers/client/client.controller.js");
-const { create, findAll, findOne, update } = clientController;
+const clientController = require("./controllers");
 const url = "/api/clients/";
 
 module.exports = (app) => {
-  /* Create */
-  app.post(url, create);
   /*  Get All */
-  app.get(url, findAll);
+  app.get(url, (req, res) => {
+    clientController.findAll("client", req, res);
+  });
+  /* Create */
+  app.post(url, (req, res) => {
+    clientController.create("client", req, res);
+  });
   /* Retrieve a single Note with clientId */
-  app.get(url + ":clientId", findOne);
+  app.get(url + ":clientId", (req, res) => {
+    clientController.findOne("client", req, res);
+  });
   /** Update a Note with clientId */
-  app.put(url + ":clientId", update);
+  app.put(url + ":clientId", (req, res) => {
+    clientController.update("client", req, res);
+  });
   /* Delete a Note with clientId */
-  app.delete(url + ":clientId", clientController.delete);
+  app.delete(url + ":clientId", (req, res) => {
+    clientController.delete("client", req, res);
+  });
 };

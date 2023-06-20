@@ -4,7 +4,7 @@
  * _|      _|  _|  _|  _|  _|    _|
  *   _|  _|    _|      _|  _|    _|
  *     _|      _|      _|  _|_|_|
- * MongoDB Schema Example
+ * MongoDB Schema Clients Sample
  */
 const mongoose = require("mongoose");
 const clientSchema = mongoose.Schema(
