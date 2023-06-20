@@ -9,10 +9,11 @@
  * @param {*} app - Vimedev.com Labs
  */
 
+const Path = require("path");
+const configuration = require("../server");
+const api = require("./api");
+
 module.exports = (app) => {
-  const Path = require("path");
-  const configuration = require("../server");
-  const api = require("./api");
   app.get("/", function (res) {
     res.sendFile("index.html", { root: Path.join("./public") });
   });

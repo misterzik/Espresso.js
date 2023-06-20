@@ -28,7 +28,7 @@ Running ....
 
 Instance Config:
 Configuration: ${cfgB.instance}
-Endpoint: localhost:${cfgB.port}
+Endpoint: http://localhost:${cfgB.port}
 JSON:`,
       cfgB,
       `\n\nTo stop process press CTRL+C`
@@ -59,7 +59,7 @@ function envCommand(argv) {
   } else {
     console.warn("Config already saved...");
   }
-  writeConfigFile(cfgB)
+  writeConfigFile(cfgB);
 }
 
 yargs.command({
