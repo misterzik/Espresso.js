@@ -10,7 +10,7 @@
  * @param {*} app - Vimedev.com Labs
  */
 
-const clientController = require("./controllers");
+const clientController = require("../../server/controllers");
 const url = "/api/clients/";
 
 module.exports = (app) => {
