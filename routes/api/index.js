@@ -9,15 +9,17 @@
 
 const express = require("express");
 const router = express.Router();
-const { getAPI, getItem, getItemId } = require("../utils");
-router.get("/v1/", (req, res) => {
-  getAPI(req, res);
-});
-router.get("/v1/:item", (req, res, next) => {
-  getItem(req, res, req.params.item);
-});
-router.get("/v1/:item/:itemId", (req, res, next) => {
-  getItemId(req, res, req.params.item, req.params.itemId);
-});
+const configuration = require("../../server");
 
-module.exports = router;
+// const { getAPI, getItem, getItemId } = require("../utils");
+// router.get("/v1/", (req, res) => {
+//   getAPI(req, res);
+// });
+// router.get("/v1/:item", (req, res, next) => {
+//   getItem(req, res, req.params.item);
+// });
+// router.get("/v1/:item/:itemId", (req, res, next) => {
+//   getItemId(req, res, req.params.item, req.params.itemId);
+// });
+
+module.exports = { router, configuration };
