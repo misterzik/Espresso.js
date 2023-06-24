@@ -39,4 +39,4 @@ const getItemId = (req, res, params, paramsId) => {
     .catch((err) => res.send(err));
 };
 
-module.exports = { getAPI, getItem, getItemId };
+module.exports = { getAPI, getItem, getItemId, handleResponse };
