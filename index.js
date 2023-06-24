@@ -26,6 +26,7 @@ const Routes = require("./routes/index");
 
 const Port = configData.port || cfg.port;
 const mongoConfig = configData.mongo;
+const rootDir = process.cwd();
 
 if (configData.mongo_isEnabled) {
   const {
@@ -66,9 +67,9 @@ app.use(Compression());
 app.use(Cors());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-app.use(Favicon(Path.join("./public", "favicon.ico")));
+app.use(Favicon(Path.join(rootDir, "public", "favicon.ico")));
 app.use(
-  Static(Path.join("./public"), {
+  Static(Path.join(rootDir, "public"), {
     maxAge: "1d",
     setHeaders: setCustomCacheControl,
     etag: true,

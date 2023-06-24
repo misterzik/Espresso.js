@@ -9,14 +9,16 @@
  * @param {*} app - Vimedev.com Labs
  */
 
-const Path = require("path");
+const path = require("path");
 const configuration = require("../server");
+const rootDir = process.cwd();
 const api = require(path.join(rootDir, "routes", "api.js"));
 const db = require(path.join(rootDir, "routes", "db.js"));
 
 module.exports = (app) => {
-  app.get("/", function (res) {
-    res.sendFile("index.html", { root: Path.join("./public") });
+  app.get("/*", function (req, res) {
+    const filePath = path.join(rootDir, "public", "index.html");
+    res.sendFile(filePath);
   });
   if (configuration.api_isEnabled === true) {
     app.use("/api", api);
