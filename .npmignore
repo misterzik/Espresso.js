@@ -1,2 +1,4 @@
 .github
 demo
+routes/db
+routes/api

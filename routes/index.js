@@ -11,8 +11,8 @@
 
 const Path = require("path");
 const configuration = require("../server");
-const api = require("./api");
-const db = require("./db");
+const api = require(path.join(rootDir, "routes", "api.js"));
+const db = require(path.join(rootDir, "routes", "db.js"));
 
 module.exports = (app) => {
   app.get("/", function (res) {
@@ -22,7 +22,7 @@ module.exports = (app) => {
     app.use("/api", api);
   }
   if (configuration.mongo_isEnabled === true) {
-    db(app);
+    app.use("/api", db);
   }
   app.use(function (req, res, next) {
     res.status(404).send("404 - Sorry can't find that!");
