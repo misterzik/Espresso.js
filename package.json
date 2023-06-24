@@ -1,6 +1,6 @@
 {
     "name": "@misterzik/espressojs",
-    "version": "3.2.4",
+    "version": "3.2.5",
     "description": "EspressoJS Introducing Espresso.JS, your ultimate Express configuration starting point and boilerplate. With its simplicity and lack of opinionation, EspressoJS offers plug-and-play configurations built on top of Express.",
     "main": "index.js",
     "scripts": {

@@ -13,7 +13,10 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 const cfg = require("./server");
-const { readConfigFile } = require("./server/utils/config.utils");
+const {
+  readConfigFile,
+  setCustomCacheControl,
+} = require("./server/utils/config.utils");
 const configData = readConfigFile();
 
 const Path = require("path");
@@ -40,8 +43,7 @@ if (configData.mongo_isEnabled) {
     ":" +
     process.env.MONGO_TOKEN +
     "@" +
-    mongoUri 
-    +
+    mongoUri +
     hasPort +
     mongoDb
   }`;
@@ -57,12 +59,6 @@ if (configData.mongo_isEnabled) {
     .catch((err) => console.error(err));
 }
 
-const setCustomCacheControl = (res, path) => {
-  if (Static.mime.lookup(path) === "text/html") {
-    res.setHeader("Cache-Control", "public, max-age=0");
-  }
-};
-
 app.use(Compression());
 app.use(Cors());
 app.use(express.urlencoded({ extended: false }));
@@ -76,7 +72,6 @@ app.use(
     extensions: "error.html",
   })
 );
-
 Routes(app);
 app.listen(Port, () => {
   console.log(`Server is running on port ${Port}`);
