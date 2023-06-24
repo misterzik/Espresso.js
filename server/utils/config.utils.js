@@ -20,4 +20,15 @@ const vmdLogo = `
 '----'/.ZI|<..
       `;
 
-module.exports = { readConfigFile, writeConfigFile, vmdLogo };
+const setCustomCacheControl = (res, path) => {
+  if (Static.mime.lookup(path) === "text/html") {
+    res.setHeader("Cache-Control", "public, max-age=0");
+  }
+};
+
+module.exports = {
+  readConfigFile,
+  writeConfigFile,
+  vmdLogo,
+  setCustomCacheControl,
+};
