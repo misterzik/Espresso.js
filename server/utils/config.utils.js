@@ -1,3 +1,4 @@
+const Static = require("serve-static");
 const fs = require("fs");
 
 function readConfigFile() {
