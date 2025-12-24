@@ -63,3 +63,5 @@ typings/
 # demo
 public
 .npmrc
+examples/client-api-migration.js
+docs/CLIENT-MIGRATION-GUIDE.md
