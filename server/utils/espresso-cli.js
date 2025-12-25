@@ -44,8 +44,16 @@ JSON:`,
     
     const child = spawn(
       "node",
-      ["./node_modules/cross-env/src/bin/cross-env", `NODE_ENV=${cfgB.instance}`, `PORT=${cfgB.port}`, "node", "index.js"],
-      { stdio: "inherit", shell: true }
+      ["index.js"],
+      { 
+        stdio: "inherit", 
+        shell: true,
+        env: {
+          ...process.env,
+          NODE_ENV: cfgB.instance,
+          PORT: cfgB.port.toString()
+        }
+      }
     );
 
     child.on("error", (error) => {
@@ -56,6 +64,7 @@ JSON:`,
       if (code !== 0) {
         console.error(`Process exited with code ${code}`);
       }
+      process.exit(code);
     });
   }
 }

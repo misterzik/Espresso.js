@@ -2,6 +2,30 @@
 
 All notable changes to EspressoJS will be documented in this file.
 
+## [3.3.3] - 2024-12-24
+
+### Fixed
+- Server startup crash when favicon or public directory missing
+- Configuration property names in routes (api.enabled, mongoDB.enabled)
+- Public directory path handling (supports both absolute and relative paths)
+- CLI spawn process simplified (removed cross-env dependency)
+- Enhanced error logging with stack traces
+
+### Changed
+- Updated dependencies to latest stable versions
+- Replaced deprecated babel-preset-env with @babel/preset-env
+- Made favicon and static file serving optional with graceful fallbacks
+
+### Security
+- Fixed 22 critical vulnerabilities by updating Babel dependencies
+- Updated axios, joi, and mongoose to latest versions
+
+## [3.3.2] - 2024-12-24
+
+### Fixed
+- Package publishing configuration
+- Updated .npmignore to exclude development files
+
 ## [3.3.1] - 2024-01-01
 
 ### Added

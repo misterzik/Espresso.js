@@ -49,7 +49,10 @@ const {
 const Port = configData.port || cfg.port;
 const mongoConfig = configData.mongoDB;
 const rootDir = process.cwd();
-const publicDir = configData.publicDirectory || "/public";
+const publicDir = configData.publicDirectory || "public";
+const publicPath = publicDir.startsWith('/') || publicDir.startsWith('\\') 
+  ? publicDir.substring(1) 
+  : publicDir;
 
 validateEnvVariables();
 
@@ -103,21 +106,27 @@ app.get("/ready", readinessCheck);
 app.get("/alive", livenessCheck);
 
 const fs = require("fs");
-const faviconPath = Path.join(rootDir, publicDir, "favicon.ico");
+const faviconPath = Path.join(rootDir, publicPath, "favicon.ico");
 if (fs.existsSync(faviconPath)) {
   app.use(Favicon(faviconPath));
 } else {
   logger.warn(`Favicon not found at ${faviconPath}, skipping...`);
 }
 
-app.use(
-  Static(Path.join(rootDir, publicDir), {
-    maxAge: "1d",
-    setHeaders: setCustomCacheControl,
-    etag: true,
-    extensions: "error.html",
-  })
-);
+const staticPath = Path.join(rootDir, publicPath);
+if (fs.existsSync(staticPath)) {
+  app.use(
+    Static(staticPath, {
+      maxAge: "1d",
+      setHeaders: setCustomCacheControl,
+      etag: true,
+      extensions: "error.html",
+    })
+  );
+  logger.info(`Static files served from: ${staticPath}`);
+} else {
+  logger.warn(`Public directory not found at ${staticPath}, skipping static file serving...`);
+}
 
 Routes(app);
 
@@ -174,11 +183,18 @@ process.on("unhandledRejection", (reason, promise) => {
 
 process.on("uncaughtException", (error) => {
   logger.error(`Uncaught Exception: ${error.message}`);
+  logger.error(`Stack: ${error.stack}`);
   gracefulShutdown("UNCAUGHT_EXCEPTION");
 });
 
 if (require.main === module) {
-  startServer();
+  try {
+    startServer();
+  } catch (error) {
+    logger.error(`Failed to start server: ${error.message}`);
+    logger.error(`Stack: ${error.stack}`);
+    process.exit(1);
+  }
 }
 
 module.exports = app;

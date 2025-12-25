@@ -1,6 +1,6 @@
 {
     "name": "@misterzik/espressojs",
-    "version": "3.3.2",
+    "version": "3.3.3",
     "description": "EspressoJS Introducing Espresso.JS, your ultimate Express configuration starting point and boilerplate. With its simplicity and lack of opinionation, EspressoJS offers plug-and-play configurations built on top of Express.",
     "main": "index.js",
     "scripts": {
@@ -36,7 +36,7 @@
     },
     "homepage": "https://github.com/misterzik/Espresso.js#readme",
     "dependencies": {
-        "axios": "^1.6.0",
+        "axios": "^1.6.5",
         "bluebird": "^3.7.2",
         "compression": "^1.7.4",
         "cors": "^2.8.5",
@@ -47,8 +47,8 @@
         "express-validator": "^7.0.1",
         "finalhandler": "^1.2.0",
         "helmet": "^7.1.0",
-        "joi": "^17.11.0",
-        "mongoose": "^8.0.3",
+        "joi": "^17.12.0",
+        "mongoose": "^8.0.4",
         "morgan": "^1.10.0",
         "serve-favicon": "^2.5.0",
         "serve-static": "^1.15.0",
@@ -56,11 +56,11 @@
         "yargs": "^17.7.2"
     },
     "devDependencies": {
-        "debug": "^4.3.4",
-        "@babel/core": "^7.22.5",
+        "debug": "^4.3.7",
+        "@babel/core": "^7.23.7",
+        "@babel/preset-env": "^7.23.7",
         "amd-define-factory-patcher-loader": "^1.0.0",
-        "babel-loader": "^9.1.2",
-        "babel-preset-env": "^1.7.0"
+        "babel-loader": "^9.1.3"
     },
     "engines": {
         "node": ">= 0.10.0"
