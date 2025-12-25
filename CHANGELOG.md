@@ -2,6 +2,58 @@
 
 All notable changes to EspressoJS will be documented in this file.
 
+## [3.3.5] - 2024-12-25
+
+### Fixed
+- **Critical**: CLI process management - added `process.stdin.resume()` to keep parent process alive
+- Server now stays running properly when using `node cli run`
+- Event loop properly maintained for child process management
+
+### Added
+- Comprehensive CLI usage documentation (docs/CLI-USAGE.md)
+- `start:watch` npm script for auto-restart with nodemon
+- `dev:watch` npm script for development with auto-restart
+- `validate` npm script for configuration validation
+- Detailed process management documentation
+
+### Changed
+- Enhanced signal handling (SIGINT/SIGTERM) for graceful shutdown
+- Improved CLI process lifecycle management
+- Updated README with npm scripts section and process management explanation
+
+### Dependencies
+- Added nodemon ^3.0.2 as devDependency for development auto-restart
+
+## [3.3.4] - 2024-12-24
+
+### Added
+- Modern landing page UI with gradient background and glassmorphism design
+- Feature showcase grid with 6 interactive cards
+- Animated coffee icon with floating effect
+- Call-to-action buttons for GitHub and npm
+- Version badge display on landing page
+- Responsive design for mobile and tablet devices
+- Comprehensive CLI usage documentation (docs/CLI-USAGE.md)
+- `start:watch` and `dev:watch` npm scripts for auto-restart with nodemon
+- `validate` npm script for config validation
+
+### Changed
+- Completely redesigned public/index.html with modern aesthetics
+- Enhanced CLI output with emoji indicators and cleaner formatting
+- Improved CLI startup banner with better information display
+- Updated demo/public/index.html to match new design
+- Updated demo/config.json with new schema (publicDirectory, timeout, retries)
+- Updated demo/espresso.js to use APIManager instead of direct axios
+
+### Fixed
+- **Critical**: CLI process now stays alive after spawning server using `process.stdin.resume()`
+- Server startup process properly maintains event loop
+- Better signal handling (SIGINT/SIGTERM) for graceful shutdown
+- CLI no longer exits prematurely when running `node cli run`
+
+### Dependencies
+- Added nodemon ^3.0.2 as devDependency for development auto-restart
+
 ## [3.3.3] - 2024-12-24
 
 ### Fixed

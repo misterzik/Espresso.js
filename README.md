@@ -112,8 +112,14 @@ node cli show
 # Run the server
 node cli run
 
+# Run with auto-restart (development)
+npm run start:watch
+
 # Update environment settings
 node cli env --instance=production --port=3000
+
+# Validate configuration
+node cli validate
 
 # Initialize new config
 node cli init
@@ -127,6 +133,37 @@ node cli version
 # Get help
 node cli --help
 ```
+
+### npm Scripts
+
+EspressoJS provides convenient npm scripts for common tasks:
+
+```bash
+# Start server
+npm start                    # Start with current config
+npm run start:watch          # Start with auto-restart (nodemon)
+
+# Development
+npm run dev                  # Start in development mode
+npm run dev:watch            # Dev mode with auto-restart
+
+# Production
+npm run prod                 # Start in production mode
+
+# Configuration
+npm run show                 # Display current config
+npm run validate             # Validate config.json
+```
+
+**Process Management:**
+
+The CLI uses a parent-child process model to keep your server running:
+- Parent process (CLI) manages the server lifecycle
+- Child process runs the Express application
+- `process.stdin.resume()` keeps the event loop active
+- Press `CTRL+C` for graceful shutdown
+
+For more details, see [CLI Usage Documentation](./docs/CLI-USAGE.md).
 
 ## 📁 Project Structure
 

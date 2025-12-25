@@ -2,6 +2,7 @@
   "instance": "development",
   "port": 8080,
   "hostname": "",
+  "publicDirectory": "/public",
   "mongoDB": {
     "enabled": false,
     "port": null,
@@ -9,12 +10,14 @@
     "instance": "database"
   },
   "api": {
-    "enabled": false,
+    "enabled": true,
     "uri": "https://swapi.dev/api/people/",
     "url": "",
     "method": "GET",
     "headers": {
       "Content-Type": "application/json"
-    }
+    },
+    "timeout": 30000,
+    "retries": 0
   }
 }
