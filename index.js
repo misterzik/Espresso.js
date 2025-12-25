@@ -136,6 +136,8 @@ app.use(errorHandler);
 let server;
 
 const startServer = () => {
+  logger.info(`Attempting to start server on port ${Port}...`);
+  
   server = app.listen(Port, () => {
     logger.info(`
 ╔═══════════════════════════════════════════════════════╗
@@ -149,6 +151,20 @@ const startServer = () => {
 ║  API:         ${(configData.api.enabled ? "Enabled" : "Disabled").padEnd(39)} ║
 ╚═══════════════════════════════════════════════════════╝
     `);
+  });
+  
+  server.on('error', (error) => {
+    if (error.code === 'EADDRINUSE') {
+      logger.error(`Port ${Port} is already in use`);
+    } else {
+      logger.error(`Server error: ${error.message}`);
+      logger.error(`Stack: ${error.stack}`);
+    }
+    process.exit(1);
+  });
+  
+  server.on('listening', () => {
+    logger.info(`Server is now listening on port ${Port}`);
   });
 };
 

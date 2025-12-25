@@ -26,28 +26,32 @@ function showCommand() {
 
 function runCommand() {
   if (cfgB !== undefined) {
-    const cmd_ct = vmdLogo;
-    console.log(`${cmd_ct}`);
-    console.log(
-      `Espresso CLI
---------------
-Warming Up Configs..
-Running ....
-
-Instance Config:
-Configuration: ${cfgB.instance}
-Endpoint: http://localhost:${cfgB.port}
-JSON:`,
-      JSON.stringify(cfgB, null, 2),
-      `\n\nTo stop process press CTRL+C\n`
-    );
+    console.log('\n╔═══════════════════════════════════════════════════════╗');
+    console.log('║                   ESPRESSO.JS CLI                     ║');
+    console.log('╚═══════════════════════════════════════════════════════╝\n');
+    
+    console.log('🚀 Starting server...\n');
+    console.log(`📋 Configuration:`);
+    console.log(`   Environment:  ${cfgB.instance}`);
+    console.log(`   Port:         ${cfgB.port}`);
+    console.log(`   URL:          http://localhost:${cfgB.port}`);
+    console.log(`   MongoDB:      ${cfgB.mongoDB?.enabled ? '✓ Enabled' : '✗ Disabled'}`);
+    console.log(`   API:          ${cfgB.api?.enabled ? '✓ Enabled' : '✗ Disabled'}`);
+    
+    const apiCount = Object.keys(cfgB).filter(key => key.match(/^api\d*$/)).length;
+    if (apiCount > 1) {
+      console.log(`   API Endpoints: ${apiCount} configured`);
+    }
+    
+    console.log('\n💡 Press CTRL+C to stop the server\n');
+    console.log('─'.repeat(55) + '\n');
     
     const child = spawn(
       "node",
       ["index.js"],
       { 
         stdio: "inherit", 
-        shell: true,
+        shell: false,
         env: {
           ...process.env,
           NODE_ENV: cfgB.instance,
@@ -57,14 +61,29 @@ JSON:`,
     );
 
     child.on("error", (error) => {
-      console.error(`Error: ${error.message}`);
+      console.error(`Error starting server: ${error.message}`);
+      process.exit(1);
     });
 
-    child.on("exit", (code) => {
-      if (code !== 0) {
-        console.error(`Process exited with code ${code}`);
+    child.on("exit", (code, signal) => {
+      if (signal) {
+        console.log(`Server process killed with signal ${signal}`);
+      } else if (code !== 0) {
+        console.error(`Server process exited with code ${code}`);
+      } else {
+        console.log(`Server process exited cleanly`);
       }
-      process.exit(code);
+      process.exit(code || 0);
+    });
+
+    // Keep the CLI process alive
+    process.on('SIGINT', () => {
+      console.log('\nShutting down server...');
+      child.kill('SIGINT');
+    });
+
+    process.on('SIGTERM', () => {
+      child.kill('SIGTERM');
     });
   }
 }

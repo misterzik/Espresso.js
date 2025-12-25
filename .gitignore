@@ -61,7 +61,7 @@ typings/
 
 # Local Development
 # demo
-public
+# public
 .npmrc
 examples/client-api-migration.js
 docs/CLIENT-MIGRATION-GUIDE.md
