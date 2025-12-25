@@ -38,8 +38,8 @@ module.exports = (app) => {
 
   if (configuration.api && configuration.api.enabled === true) {
     try {
-      const apiRoutes = require(path.join(rootDir, "routes", "api.js"));
-      app.use("/api", apiRoutes);
+      const apiRoutes = require(path.join(rootDir, "routes", "api", "index.js"));
+      app.use("/", apiRoutes.router);
       logger.info("API routes loaded successfully");
     } catch (error) {
       logger.warn(`API routes not found or failed to load: ${error.message}`);
@@ -56,6 +56,7 @@ module.exports = (app) => {
     }
   }
 
+  // Catch-all route must be last to avoid intercepting API routes
   app.get(
     "/*",
     asyncHandler(async (req, res) => {
