@@ -102,7 +102,14 @@ app.get("/health", healthCheck);
 app.get("/ready", readinessCheck);
 app.get("/alive", livenessCheck);
 
-app.use(Favicon(Path.join(rootDir, publicDir, "favicon.ico")));
+const fs = require("fs");
+const faviconPath = Path.join(rootDir, publicDir, "favicon.ico");
+if (fs.existsSync(faviconPath)) {
+  app.use(Favicon(faviconPath));
+} else {
+  logger.warn(`Favicon not found at ${faviconPath}, skipping...`);
+}
+
 app.use(
   Static(Path.join(rootDir, publicDir), {
     maxAge: "1d",

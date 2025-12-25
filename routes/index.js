@@ -11,10 +11,11 @@
 
 const path = require("path");
 const fs = require("fs");
-const configuration = require("../server");
+const { readConfigFile } = require("../server/utils/config.utils");
 const logger = require("../server/utils/logger");
 const { asyncHandler } = require("../server/middleware/errorHandler");
 const rootDir = process.cwd();
+const configuration = readConfigFile();
 
 module.exports = (app) => {
   app.get(
@@ -26,7 +27,7 @@ module.exports = (app) => {
         logger.warn("index.html not found, sending default response");
         return res.status(200).json({
           message: "Welcome to EspressoJS",
-          version: "3.2.6",
+          version: "3.3.2",
           documentation: "https://github.com/misterzik/Espresso.js",
         });
       }
@@ -35,7 +36,7 @@ module.exports = (app) => {
     })
   );
 
-  if (configuration.api_isEnabled === true) {
+  if (configuration.api && configuration.api.enabled === true) {
     try {
       const apiRoutes = require(path.join(rootDir, "routes", "api.js"));
       app.use("/api", apiRoutes);
@@ -45,7 +46,7 @@ module.exports = (app) => {
     }
   }
 
-  if (configuration.mongo_isEnabled === true) {
+  if (configuration.mongoDB && configuration.mongoDB.enabled === true) {
     try {
       const dbRoutes = require(path.join(rootDir, "routes", "db.js"));
       app.use("/api/db", dbRoutes);
