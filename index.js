@@ -203,6 +203,7 @@ process.on("uncaughtException", (error) => {
   gracefulShutdown("UNCAUGHT_EXCEPTION");
 });
 
+// Auto-start server if run directly (not required as module)
 if (require.main === module) {
   try {
     startServer();
@@ -213,6 +214,10 @@ if (require.main === module) {
   }
 }
 
+// Export app and utilities for programmatic usage
 module.exports = app;
 module.exports.apiManager = apiManager;
 module.exports.config = configData;
+module.exports.startServer = startServer;
+module.exports.gracefulShutdown = gracefulShutdown;
+module.exports.server = server;

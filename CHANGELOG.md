@@ -2,6 +2,37 @@
 
 All notable changes to EspressoJS will be documented in this file.
 
+## [3.3.6] - 2024-12-25
+
+### Fixed
+- **Critical**: API routes now load correctly from `routes/api/index.js`
+- API routes properly mounted at root level to support `/v1/` endpoints
+- Catch-all route moved to end to prevent intercepting API routes
+- Route loading path corrected to use proper file structure
+- Programmatic usage now properly supported with exported `startServer()` function
+
+### Changed
+- Replaced static version badge with dynamic npm version shield badge
+- Updated landing page to show live npm version from shields.io
+- Improved code formatting and whitespace consistency in HTML files
+- Updated default API URI to use swapi.info instead of swapi.dev
+- Enhanced module exports for better programmatic usage
+
+### Added
+- Dynamic version badge using shields.io npm API
+- Better visual indication of current package version on landing page
+- Exported `startServer()` function for programmatic usage
+- Exported `gracefulShutdown()` function for custom shutdown handling
+- Exported `server` instance for advanced use cases
+- Comprehensive usage patterns documentation (docs/USAGE-PATTERNS.md)
+- README section explaining different server startup methods
+
+### Documentation
+- Added detailed guide explaining why some users need manual `app.listen()`
+- Documented three usage patterns: CLI, Direct Execution, and Programmatic
+- Explained `require.main === module` behavior and implications
+- Migration guide from manual listen to `startServer()` function
+
 ## [3.3.5] - 2024-12-25
 
 ### Fixed

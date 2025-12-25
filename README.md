@@ -93,6 +93,8 @@ require('@misterzik/espressojs/cli');
 
 ### 5. Run Your Server
 
+**Method 1: Using CLI (Recommended)**
+
 ```bash
 # Using the CLI
 node cli run
@@ -100,6 +102,31 @@ node cli run
 # Or using npm scripts
 npm start
 ```
+
+**Method 2: Direct Execution**
+
+```bash
+node index.js
+```
+
+**Method 3: Programmatic Usage (v3.3.6+)**
+
+If you're requiring EspressoJS as a module in your own code:
+
+```javascript
+// Option A: Use built-in startServer (recommended)
+const { startServer } = require('@misterzik/espressojs');
+startServer();
+
+// Option B: Manual control
+const app = require('@misterzik/espressojs');
+const config = require('@misterzik/espressojs/server');
+app.listen(config.port, () => {
+  console.log(`Server running on port ${config.port}`);
+});
+```
+
+> **Note:** If you're using EspressoJS programmatically (requiring it as a module), the server won't auto-start. You must either call `startServer()` or manually use `app.listen()`. See [Usage Patterns Guide](./docs/USAGE-PATTERNS.md) for details.
 
 ## 🛠️ CLI Commands
 
