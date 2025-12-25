@@ -1,25 +1,43 @@
 /**
- * EspressoJS / Espresso is your one-stop 
- * Express Configuration starting point
+ * EspressoJS - Modern Express Boilerplate
+ * Your ultimate Express configuration starting point
+ * 
+ * This demo shows how to use the new APIManager for multiple API endpoints
  */
 require("@misterzik/espressojs");
-const configuration = require("@misterzik/espressojs/server");
+const express = require("express");
+const router = express.Router();
+const { apiManager } = require("@misterzik/espressojs");
+const { asyncHandler } = require("@misterzik/espressojs/server/middleware/errorHandler");
 
-// Create's Sample Routers for API
-const router = require("@misterzik/espressojs/routes/api");
-const axios = require("axios");
-const getAPI = (req, res) => {
-  axios
-    .get(configuration.api.uri, configuration.api.configs)
-    .then(function (response) {
-      if (response.status == 200) {
-        res.json(response.data);
-      } else if (response.status == 400) {
-        res.json({ message: "400" });
-      }
-    })
-    .catch((err) => res.send(err));
-};
-router.get("/v2/", (req, res) => {
-  getAPI(req, res);
+// Example: Using the new APIManager
+router.get("/v2/", asyncHandler(async (req, res) => {
+  // Make a request using the configured API endpoint
+  const data = await apiManager.request('api', '');
+  res.json({
+    status: 'success',
+    data
+  });
+}));
+
+// Example: Custom endpoint with parameters
+router.get("/v2/people/:id", asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const data = await apiManager.request('api', `${id}/`);
+  res.json({
+    status: 'success',
+    data
+  });
+}));
+
+// Example: Check API health
+router.get("/v2/health", (req, res) => {
+  const apis = apiManager.getAllAPIs();
+  res.json({
+    status: 'ok',
+    apis: Object.keys(apis),
+    version: '3.3.5'
+  });
 });
+
+module.exports = router;

@@ -76,7 +76,7 @@ function runCommand() {
       process.exit(code || 0);
     });
 
-    // Keep the CLI process alive
+    // Keep the CLI process alive by handling signals
     process.on('SIGINT', () => {
       console.log('\nShutting down server...');
       child.kill('SIGINT');
@@ -85,6 +85,10 @@ function runCommand() {
     process.on('SIGTERM', () => {
       child.kill('SIGTERM');
     });
+
+    // Prevent the process from exiting by keeping stdin open
+    // This ensures the CLI stays alive as long as the child process is running
+    process.stdin.resume();
   }
 }
 
