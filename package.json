@@ -4,7 +4,7 @@
     "description": "EspressoJS - A modern, secure Express.js boilerplate with SSR support, API enhancements, and plug-and-play configuration. Built for rapid development with security-first approach.",
     "main": "index.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
+        "test": "node test-v4.js && node cli validate",
         "start": "node cli run",
         "start:watch": "nodemon cli run",
         "dev": "node cli env --instance=development --port=8080 && node cli run",
