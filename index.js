@@ -20,8 +20,12 @@ const {
 const { validateEnvVariables } = require("./server/utils/configValidator");
 const logger = require("./server/utils/logger");
 const APIManager = require("./server/utils/apiManager");
+const { createSSRManager } = require("./server/middleware/ssr");
+const { createAPIEnhancer } = require("./server/middleware/apiEnhancer");
 const configData = readConfigFile();
 const apiManager = new APIManager(configData);
+const ssrManager = configData.features?.ssr ? createSSRManager(configData.features.ssr) : null;
+const apiEnhancer = configData.features?.apiEnhancer ? createAPIEnhancer(configData.features.apiEnhancer) : null;
 
 const Path = require("path");
 const Cors = require("cors");
@@ -35,6 +39,8 @@ const Routes = require("./routes/index");
 const {
   helmetConfig,
   rateLimiter,
+  hppProtection,
+  sanitizeData,
 } = require("./server/middleware/security");
 const {
   errorHandler,
@@ -62,33 +68,37 @@ if (configData.mongoDB.enabled) {
     port: mongoPort = configData.mongoDB.port || "",
     db: mongoDb = configData.mongoDB.instance || "",
   } = mongoConfig;
+  
+  if (!process.env.MONGO_USER || !process.env.MONGO_TOKEN) {
+    logger.error("MongoDB credentials not found in environment variables");
+    logger.error("Please set MONGO_USER and MONGO_TOKEN in .env file");
+    process.exit(1);
+  }
+  
   const hasPort = mongoPort ? `:${mongoPort}/` : "/";
-  const url = `mongodb+srv://${
-    process.env.MONGO_USER +
-    ":" +
-    process.env.MONGO_TOKEN +
-    "@" +
-    mongoUri +
-    hasPort +
-    mongoDb
-  }`;
+  const credentials = `${encodeURIComponent(process.env.MONGO_USER)}:${encodeURIComponent(process.env.MONGO_TOKEN)}`;
+  const url = `mongodb+srv://${credentials}@${mongoUri}${hasPort}${mongoDb}`;
 
   mongoose.Promise = global.Promise;
   mongoose
-    .connect(url, {
-      useUnifiedTopology: true,
-      useNewUrlParser: true,
-      promiseLibrary: require("bluebird"),
-    })
+    .connect(url)
     .then(() => logger.info(":: DB Connection successful ::"))
-    .catch((err) => logger.error(`DB Connection error: ${err.message}`));
+    .catch((err) => {
+      logger.error(`DB Connection error: ${err.message}`);
+      if (process.env.NODE_ENV === "production") {
+        process.exit(1);
+      }
+    });
 }
 
-app.use(helmetConfig());
+const securityConfig = configData.security || {};
+app.use(helmetConfig({ strictCSP: securityConfig.strictCSP }));
 app.use(Compression());
 app.use(Cors());
-app.use(express.urlencoded({ extended: false, limit: "10mb" }));
+app.use(express.urlencoded({ extended: false, limit: "10mb", parameterLimit: 1000 }));
 app.use(express.json({ limit: "10mb" }));
+app.use(sanitizeData);
+app.use(hppProtection);
 
 const morganFormat = process.env.NODE_ENV === "production" ? "combined" : "dev";
 app.use(
@@ -99,7 +109,20 @@ app.use(
   })
 );
 
-app.use(rateLimiter);
+if (securityConfig.rateLimit?.enabled !== false) {
+  app.use(rateLimiter);
+}
+
+if (ssrManager) {
+  ssrManager.initialize(app);
+  app.use(ssrManager.middleware());
+}
+
+if (apiEnhancer) {
+  app.use(apiEnhancer.responseFormatter());
+  app.use(apiEnhancer.versioningMiddleware());
+  apiEnhancer.setupSwagger(app);
+}
 
 app.get("/health", healthCheck);
 app.get("/ready", readinessCheck);
@@ -139,9 +162,12 @@ const startServer = () => {
   logger.info(`Attempting to start server on port ${Port}...`);
   
   server = app.listen(Port, () => {
-    logger.info(`
+    const ssrStatus = configData.features?.ssr?.enabled ? "Enabled" : "Disabled";
+  const apiDocsStatus = configData.features?.apiEnhancer?.documentation ? "Enabled" : "Disabled";
+  
+  logger.info(`
 ╔═══════════════════════════════════════════════════════╗
-║                   ESPRESSO.JS                         ║
+║                   ESPRESSO.JS v4.0.0                  ║
 ║              Express Boilerplate Server               ║
 ╠═══════════════════════════════════════════════════════╣
 ║  Environment: ${configData.instance.padEnd(39)} ║
@@ -149,8 +175,15 @@ const startServer = () => {
 ║  URL:         http://localhost:${Port.toString().padEnd(27)} ║
 ║  MongoDB:     ${(configData.mongoDB.enabled ? "Enabled" : "Disabled").padEnd(39)} ║
 ║  API:         ${(configData.api.enabled ? "Enabled" : "Disabled").padEnd(39)} ║
+║  SSR:         ${ssrStatus.padEnd(39)} ║
+║  API Docs:    ${apiDocsStatus.padEnd(39)} ║
 ╚═══════════════════════════════════════════════════════╝
     `);
+  
+  if (apiDocsStatus === "Enabled") {
+    const docsUrl = `http://localhost:${Port}${configData.features.apiEnhancer.prefix}/docs`;
+    logger.info(`API Documentation: ${docsUrl}`);
+  }
   });
   
   server.on('error', (error) => {
@@ -217,6 +250,8 @@ if (require.main === module) {
 // Export app and utilities for programmatic usage
 module.exports = app;
 module.exports.apiManager = apiManager;
+module.exports.ssrManager = ssrManager;
+module.exports.apiEnhancer = apiEnhancer;
 module.exports.config = configData;
 module.exports.startServer = startServer;
 module.exports.gracefulShutdown = gracefulShutdown;

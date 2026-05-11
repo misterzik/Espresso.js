@@ -3,6 +3,31 @@
   "port": 8080,
   "hostname": "",
   "publicDirectory": "/public",
+  "features": {
+    "ssr": {
+      "enabled": false,
+      "engine": "ejs",
+      "viewsDir": "views",
+      "cache": false
+    },
+    "apiEnhancer": {
+      "enabled": true,
+      "versioning": false,
+      "documentation": true,
+      "prefix": "/api",
+      "version": "v1",
+      "title": "EspressoJS Demo API",
+      "description": "Demo API showcasing EspressoJS v4.0.0 features"
+    }
+  },
+  "security": {
+    "rateLimit": {
+      "enabled": true,
+      "windowMs": 900000,
+      "max": 100
+    },
+    "strictCSP": false
+  },
   "mongoDB": {
     "enabled": false,
     "port": null,

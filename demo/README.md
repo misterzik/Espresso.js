@@ -1,6 +1,6 @@
-# EspressoJS Demo
+# EspressoJS v4.0.0 Demo
 
-This demo shows how to use EspressoJS v3.3.4 with the new features including the APIManager, modern UI, and enhanced configuration.
+This demo shows how to use EspressoJS v4.0.0 with the latest features including SSR, API documentation, enhanced security, and the APIManager.
 
 ## 📁 Files
 

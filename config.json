@@ -3,6 +3,32 @@
   "port": 8080,
   "hostname": "",
   "publicDirectory": "/public",
+  "features": {
+    "ssr": {
+      "enabled": false,
+      "engine": "ejs",
+      "viewsDir": "views",
+      "cache": false,
+      "layout": null
+    },
+    "apiEnhancer": {
+      "enabled": true,
+      "versioning": false,
+      "documentation": true,
+      "prefix": "/api",
+      "version": "v1",
+      "title": "Espresso.js v4.0.0 API",
+      "description": "API documentation showcasing v4.0.0 features"
+    }
+  },
+  "security": {
+    "rateLimit": {
+      "enabled": true,
+      "windowMs": 900000,
+      "max": 100
+    },
+    "strictCSP": false
+  },
   "mongoDB": {
     "enabled": false,
     "port": null,
