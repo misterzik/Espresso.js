@@ -1,29 +1,53 @@
 ![Espresso](https://raw.githubusercontent.com/misterzik/Espresso.js/main/espresso.png)
 
-# EspressoJS
+# EspressoJS v4.0.0
 
-> **A modern, production-ready Express.js boilerplate with built-in security, logging, and best practices.**
+> **A modern, secure Express.js framework with SSR, API documentation, and enterprise-grade security. Built for rapid development with a plug-and-play approach.**
 
 [![npm version](https://img.shields.io/npm/v/@misterzik/espressojs.svg)](https://www.npmjs.com/package/@misterzik/espressojs)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Node.js Version](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen)](https://nodejs.org)
+[![Security](https://img.shields.io/badge/security-enterprise-blue)](./docs/SECURITY.md)
+
+## ✨ What's New in v4.0.0
+
+🎉 **Major Release** - [See Full Changelog](./CHANGELOG.md) | [Migration Guide](./MIGRATION-V4.md) | [Upgrade Summary](./UPGRADE-SUMMARY.md)
+
+- 🎨 **Server-Side Rendering** - EJS, Handlebars, Pug support
+- 📚 **API Documentation** - Auto-generated Swagger/OpenAPI docs
+- 🔒 **Enhanced Security** - NoSQL injection prevention, HPP protection, strict CSP
+- 🚀 **API Enhancements** - Versioning, validation, response formatting
+- 📦 **Latest Packages** - All dependencies updated to secure versions
+- 📝 **Comprehensive Docs** - 2,000+ lines of guides and examples
 
 ## 🚀 Features
 
-- ⚡ **Quick Setup** - Get your Express server running in seconds
-- 🔒 **Security First** - Helmet, rate limiting, and CORS pre-configured
-- 📝 **Advanced Logging** - Winston logger with file and console transports
-- 🛡️ **Error Handling** - Centralized error handling middleware
-- 🔧 **Configuration Management** - JSON-based config with validation
-- 💾 **MongoDB Ready** - Optional MongoDB integration with Mongoose
+### Core Features
+- ⚡ **Quick Setup** - Zero-config startup with sensible defaults
+- 🔒 **Security First** - 6+ layers of enterprise-grade security
+- 📝 **Advanced Logging** - Winston logger with multiple transports
+- 🛡️ **Error Handling** - Centralized error handling with custom error classes
+- 🔧 **Configuration Management** - JSON-based config with Joi validation
+- 💾 **MongoDB Ready** - Optional MongoDB integration with secure connections
 - 🏥 **Health Checks** - Built-in health, readiness, and liveness endpoints
 - 🎯 **CLI Tools** - Powerful command-line interface for management
 - 🔄 **Graceful Shutdown** - Proper cleanup of resources on exit
 - 📦 **Production Ready** - Compression, caching, and optimization built-in
 
+### New in v4.0.0
+- 🎨 **Server-Side Rendering** - Multiple template engines (EJS, Handlebars, Pug)
+- 📚 **API Documentation** - Interactive Swagger UI at `/api/docs`
+- 🔐 **Enhanced Security** - NoSQL injection prevention, HPP protection
+- 🚀 **API Versioning** - URL and header-based versioning support
+- ✅ **Request Validation** - Built-in validation middleware
+- 🔑 **API Key Auth** - Simple API key authentication
+- 📊 **Response Formatting** - Standardized JSON responses
+- 🎯 **Pagination Helpers** - Built-in pagination utilities
+
 ## 📋 Requirements
 
-- **Node.js** >= 14.x
-- **npm** >= 6.x
+- **Node.js** >= 18.0.0
+- **npm** >= 9.0.0
 
 ## 📦 Installation
 

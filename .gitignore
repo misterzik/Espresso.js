@@ -32,6 +32,10 @@ bower_components
 # Compiled binary addons (http://nodejs.org/api/addons.html)
 build/Release
 
+# IDE files
+.vscode/
+.windsurf
+
 # Dependency directories
 node_modules/
 jspm_packages/

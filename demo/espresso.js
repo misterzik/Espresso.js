@@ -4,11 +4,11 @@
  * 
  * This demo shows how to use the new APIManager for multiple API endpoints
  */
-require("@misterzik/espressojs");
+require("../index");
 const express = require("express");
 const router = express.Router();
-const { apiManager } = require("@misterzik/espressojs");
-const { asyncHandler } = require("@misterzik/espressojs/server/middleware/errorHandler");
+const { apiManager } = require("../index");
+const { asyncHandler } = require("../server/middleware/errorHandler");
 
 // Example: Using the new APIManager
 router.get("/v2/", asyncHandler(async (req, res) => {

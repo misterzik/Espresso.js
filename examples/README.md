@@ -1,8 +1,10 @@
-# EspressoJS Examples
+# EspressoJS v4.0.0 Examples
 
-This directory contains example implementations to help you get started with EspressoJS.
+This directory contains comprehensive example implementations showcasing all the new features in v4.0.0.
 
 ## 📁 Available Examples
+
+### 🆕 New in v4.0.0
 
 ### `basic-api.js`
 Demonstrates how to create RESTful API routes with:
@@ -63,12 +65,105 @@ module.exports = require('./examples/multiple-apis');
 }
 ```
 
+### `ssr-example.js` ⭐ NEW
+Server-Side Rendering implementation with:
+- Multiple page types (home, blog, profile, dashboard)
+- Dynamic data binding
+- Layouts and partials
+- Form handling
+- Search functionality
+- Error pages
+
+**Usage:**
+```javascript
+// In your main app
+const ssrRoutes = require('./examples/ssr-example');
+app.use('/', ssrRoutes);
+```
+
+**Configuration:**
+```json
+{
+  "features": {
+    "ssr": {
+      "enabled": true,
+      "engine": "ejs"
+    }
+  }
+}
+```
+
+### `api-v4-example.js` ⭐ NEW
+Enhanced API with v4.0.0 features:
+- Swagger/OpenAPI documentation
+- Response formatting (success, error, paginate)
+- Request validation
+- CRUD operations
+- Search functionality
+- API key authentication
+
+**Usage:**
+```javascript
+// In your routes/api/index.js
+const apiRoutes = require('./examples/api-v4-example');
+app.use('/api', apiRoutes);
+```
+
+**Configuration:**
+```json
+{
+  "features": {
+    "apiEnhancer": {
+      "enabled": true,
+      "documentation": true
+    }
+  }
+}
+```
+
+### `hybrid-app-example.js` ⭐ NEW
+Hybrid SSR + API application:
+- Combined web pages and API endpoints
+- Progressive enhancement
+- Works with or without JavaScript
+- Shared authentication
+- Todo app example
+
+**Usage:**
+```javascript
+// In your main app
+const hybridApp = require('./examples/hybrid-app-example');
+app.use('/', hybridApp);
+```
+
+### `security-example.js` ⭐ NEW
+Security best practices:
+- JWT authentication
+- Role-based access control (RBAC)
+- Password hashing with bcrypt
+- Input validation and sanitization
+- Rate limiting
+- Protected routes
+
+**Usage:**
+```javascript
+// In your routes/auth.js
+const authRoutes = require('./examples/security-example');
+app.use('/auth', authRoutes);
+```
+
+**Environment Variables:**
+```env
+JWT_SECRET=your-secret-key-here
+```
+
 ## 🚀 Getting Started
 
 1. Copy the example file you want to use
 2. Place it in your `routes/` directory
-3. Customize it for your needs
-4. Enable the routes in your `config.json`
+3. Install any additional dependencies (jwt, bcrypt, etc.)
+4. Configure features in `config.json`
+5. Customize for your needs
 
 ## 💡 Tips
 
