@@ -32,10 +32,6 @@ bower_components
 # Compiled binary addons (http://nodejs.org/api/addons.html)
 build/Release
 
-# IDE files
-.vscode/
-.windsurf
-
 # Dependency directories
 node_modules/
 jspm_packages/
@@ -45,8 +41,9 @@ typings/
 
 # Optional npm cache directory
 .npm
-# package-lock.json
 
+# Note: package-lock.json should be committed to git for consistent installs
+# It is excluded from npm package via .npmignore
 # Optional eslint cache
 .eslintcache
 
@@ -64,8 +61,9 @@ typings/
 .vscode
 
 # Local Development
-# demo
-# public
 .npmrc
 examples/client-api-migration.js
 docs/CLIENT-MIGRATION-GUIDE.md
+CLAUDE.md
+STRATEGY.md
+PUBLISHING.md

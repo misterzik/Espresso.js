@@ -15,29 +15,34 @@ const mongoSanitize = require("express-mongo-sanitize");
 const helmetConfig = (options = {}) => {
   const strictCSP = options.strictCSP || process.env.NODE_ENV === "production";
   
-  return helmet({
-    contentSecurityPolicy: {
-      directives: {
-        defaultSrc: ["'self'"],
-        styleSrc: strictCSP ? ["'self'"] : ["'self'", "'unsafe-inline'"],
-        scriptSrc: strictCSP ? ["'self'"] : ["'self'", "'unsafe-inline'"],
-        imgSrc: ["'self'", "data:", "https:"],
-        fontSrc: ["'self'", "https:", "data:"],
-        connectSrc: ["'self'"],
-        frameSrc: ["'none'"],
-        objectSrc: ["'none'"],
-        upgradeInsecureRequests: process.env.NODE_ENV === "production" ? [] : null,
-      },
+  // Allow users to completely disable CSP or provide custom directives
+  const cspConfig = options.disableCSP ? false : {
+    directives: options.cspDirectives || {
+      defaultSrc: ["'self'"],
+      styleSrc: strictCSP ? ["'self'"] : ["'self'", "'unsafe-inline'"],
+      scriptSrc: strictCSP ? ["'self'"] : ["'self'", "'unsafe-inline'"],
+      imgSrc: ["'self'", "data:", "https:"],
+      fontSrc: ["'self'", "https:", "data:"],
+      connectSrc: ["'self'"],
+      frameSrc: ["'none'"],
+      objectSrc: ["'none'"],
+      upgradeInsecureRequests: process.env.NODE_ENV === "production" ? [] : null,
     },
-    crossOriginEmbedderPolicy: false,
-    crossOriginResourcePolicy: { policy: "cross-origin" },
-    hsts: {
+  };
+  
+  return helmet({
+    contentSecurityPolicy: cspConfig,
+    crossOriginEmbedderPolicy: options.crossOriginEmbedderPolicy !== undefined 
+      ? options.crossOriginEmbedderPolicy 
+      : false,
+    crossOriginResourcePolicy: options.crossOriginResourcePolicy || { policy: "cross-origin" },
+    hsts: options.hsts !== undefined ? options.hsts : {
       maxAge: 31536000,
       includeSubDomains: true,
       preload: true,
     },
-    noSniff: true,
-    referrerPolicy: { policy: "strict-origin-when-cross-origin" },
+    noSniff: options.noSniff !== undefined ? options.noSniff : true,
+    referrerPolicy: options.referrerPolicy || { policy: "strict-origin-when-cross-origin" },
   });
 };
 

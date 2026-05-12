@@ -92,7 +92,12 @@ if (configData.mongoDB.enabled) {
 }
 
 const securityConfig = configData.security || {};
-app.use(helmetConfig({ strictCSP: securityConfig.strictCSP }));
+app.use(helmetConfig({
+  strictCSP: securityConfig.strictCSP,
+  disableCSP: securityConfig.disableCSP,
+  cspDirectives: securityConfig.cspDirectives,
+  ...securityConfig.helmet
+}));
 app.use(Compression());
 app.use(Cors());
 app.use(express.urlencoded({ extended: false, limit: "10mb", parameterLimit: 1000 }));

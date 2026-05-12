@@ -1,0 +1,93 @@
+{
+  "instance": "development",
+  "port": 8080,
+  "hostname": "",
+  "publicDirectory": "/public",
+  
+  "features": {
+    "ssr": {
+      "enabled": false,
+      "engine": "ejs",
+      "viewsDir": "views",
+      "cache": false,
+      "layout": null
+    },
+    "apiEnhancer": {
+      "enabled": true,
+      "versioning": false,
+      "documentation": true,
+      "prefix": "/api",
+      "version": "v1",
+      "title": "Espresso.js API",
+      "description": "API documentation for Espresso.js application"
+    }
+  },
+  
+  "security": {
+    "rateLimit": {
+      "enabled": true,
+      "windowMs": 900000,
+      "max": 100
+    },
+    "strictCSP": false,
+    
+    "_comment_disableCSP": "Set to true to completely disable Content Security Policy",
+    "disableCSP": false,
+    
+    "_comment_cspDirectives": "Custom CSP directives for loading assets from external domains",
+    "cspDirectives": {
+      "defaultSrc": ["'self'"],
+      "styleSrc": ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+      "scriptSrc": ["'self'", "'unsafe-inline'"],
+      "imgSrc": ["'self'", "data:", "https:"],
+      "fontSrc": ["'self'", "https:", "data:", "https://fonts.gstatic.com"],
+      "connectSrc": ["'self'"],
+      "frameSrc": ["'none'"],
+      "objectSrc": ["'none'"]
+    },
+    
+    "_comment_helmet": "Additional Helmet.js configuration options",
+    "helmet": {
+      "hsts": {
+        "maxAge": 31536000,
+        "includeSubDomains": true,
+        "preload": true
+      },
+      "referrerPolicy": {
+        "policy": "strict-origin-when-cross-origin"
+      },
+      "noSniff": true
+    }
+  },
+  
+  "mongoDB": {
+    "enabled": false,
+    "port": null,
+    "uri": "cluster.mongodb.net",
+    "instance": "database"
+  },
+  
+  "api": {
+    "enabled": true,
+    "uri": "https://api.example.com/v1/",
+    "url": "",
+    "method": "GET",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "timeout": 30000,
+    "retries": 3
+  },
+  
+  "_comment_multipleAPIs": "You can configure multiple API endpoints",
+  "api2": {
+    "enabled": true,
+    "uri": "https://api2.example.com/",
+    "method": "GET",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "timeout": 30000,
+    "retries": 2
+  }
+}
