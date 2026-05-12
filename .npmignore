@@ -3,10 +3,10 @@ demo
 routes/db
 routes/api
 # Local Development
-# demo
 public
 examples/client-api-migration.js
 docs/CLIENT-MIGRATION-GUIDE.md
+PUBLISHING.md
 
 # Logs
 logs
@@ -48,14 +48,18 @@ jspm_packages/
 
 # IDE files
 .vscode/
-.windsurf
+CLAUDE.md
+STRATEGY.md
 
 # Typescript v1 declaration files
 typings/
 
 # Optional npm cache directory
 .npm
-# package-lock.json
+
+# Lock files (not needed in published package)
+package-lock.json
+yarn.lock
 
 # Optional eslint cache
 .eslintcache

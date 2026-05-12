@@ -1,6 +1,6 @@
 {
     "name": "@misterzik/espressojs",
-    "version": "4.0.0",
+    "version": "4.0.1",
     "description": "EspressoJS - A modern, secure Express.js boilerplate with SSR support, API enhancements, and plug-and-play configuration. Built for rapid development with security-first approach.",
     "main": "index.js",
     "scripts": {

@@ -43,6 +43,10 @@ function runCommand() {
       console.log(`   API Endpoints: ${apiCount} configured`);
     }
     
+    // Show v4.0.0 features
+    console.log(`   SSR:          ${cfgB.features?.ssr?.enabled ? '✓ Enabled' : '✗ Disabled'}`);
+    console.log(`   API Docs:     ${cfgB.features?.apiEnhancer?.documentation ? '✓ Enabled' : '✗ Disabled'}`);
+    
     console.log('\n💡 Press CTRL+C to stop the server\n');
     console.log('─'.repeat(55) + '\n');
     
