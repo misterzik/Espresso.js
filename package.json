@@ -75,10 +75,10 @@
     },
     "devDependencies": {
         "debug": "^4.3.7",
-        "@babel/core": "^7.26.0",
-        "@babel/preset-env": "^7.26.0",
+        "@babel/core": "^8.0.1",
+        "@babel/preset-env": "^8.0.2",
         "amd-define-factory-patcher-loader": "^1.0.0",
-        "babel-loader": "^9.2.1",
+        "babel-loader": "^10.1.1",
         "nodemon": "^3.1.7"
     },
     "engines": {
