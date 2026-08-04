@@ -13,35 +13,21 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 const cfg = require("./server");
-const {
-  readConfigFile,
-  setCustomCacheControl,
-} = require("./server/utils/config.utils");
+const { readConfigFile } = require("./server/utils/config.utils");
 const { validateEnvVariables } = require("./server/utils/configValidator");
 const logger = require("./server/utils/logger");
 const APIManager = require("./server/utils/apiManager");
-const { createSSRManager } = require("./server/middleware/ssr");
-const { createAPIEnhancer } = require("./server/middleware/apiEnhancer");
+const pluginManager = require("./server/core/PluginManager");
+
 const configData = readConfigFile();
 const apiManager = new APIManager(configData);
-const ssrManager = configData.features?.ssr ? createSSRManager(configData.features.ssr) : null;
-const apiEnhancer = configData.features?.apiEnhancer ? createAPIEnhancer(configData.features.apiEnhancer) : null;
 
-const Path = require("path");
 const Cors = require("cors");
 const Compression = require("compression");
-const Favicon = require("serve-favicon");
-const Static = require("serve-static");
-const mongoose = require("mongoose");
 const morgan = require("morgan");
 const Routes = require("./routes/index");
 
-const {
-  helmetConfig,
-  rateLimiter,
-  hppProtection,
-  sanitizeData,
-} = require("./server/middleware/security");
+const { helmetConfig } = require("./server/middleware/security");
 const {
   errorHandler,
   notFoundHandler,
@@ -52,44 +38,17 @@ const {
   livenessCheck,
 } = require("./server/middleware/healthCheck");
 
+const mongoDBPlugin = require("./server/plugins/mongodb.plugin");
+const rateLimitPlugin = require("./server/plugins/ratelimit.plugin");
+const securityPlugin = require("./server/plugins/security.plugin");
+const ssrPlugin = require("./server/plugins/ssr.plugin");
+const apiPlugin = require("./server/plugins/api.plugin");
+const staticPlugin = require("./server/plugins/static.plugin");
+
 const Port = configData.port || cfg.port;
-const mongoConfig = configData.mongoDB;
-const rootDir = process.cwd();
-const publicDir = configData.publicDirectory || "public";
-const publicPath = publicDir.startsWith('/') || publicDir.startsWith('\\') 
-  ? publicDir.substring(1) 
-  : publicDir;
 
 validateEnvVariables();
 
-if (configData.mongoDB.enabled) {
-  const {
-    uri: mongoUri = configData.mongoDB.uri || "",
-    port: mongoPort = configData.mongoDB.port || "",
-    db: mongoDb = configData.mongoDB.instance || "",
-  } = mongoConfig;
-  
-  if (!process.env.MONGO_USER || !process.env.MONGO_TOKEN) {
-    logger.error("MongoDB credentials not found in environment variables");
-    logger.error("Please set MONGO_USER and MONGO_TOKEN in .env file");
-    process.exit(1);
-  }
-  
-  const hasPort = mongoPort ? `:${mongoPort}/` : "/";
-  const credentials = `${encodeURIComponent(process.env.MONGO_USER)}:${encodeURIComponent(process.env.MONGO_TOKEN)}`;
-  const url = `mongodb+srv://${credentials}@${mongoUri}${hasPort}${mongoDb}`;
-
-  mongoose.Promise = global.Promise;
-  mongoose
-    .connect(url)
-    .then(() => logger.info(":: DB Connection successful ::"))
-    .catch((err) => {
-      logger.error(`DB Connection error: ${err.message}`);
-      if (process.env.NODE_ENV === "production") {
-        process.exit(1);
-      }
-    });
-}
 
 const securityConfig = configData.security || {};
 app.use(helmetConfig({
@@ -102,8 +61,6 @@ app.use(Compression());
 app.use(Cors());
 app.use(express.urlencoded({ extended: false, limit: "10mb", parameterLimit: 1000 }));
 app.use(express.json({ limit: "10mb" }));
-app.use(sanitizeData);
-app.use(hppProtection);
 
 const morganFormat = process.env.NODE_ENV === "production" ? "combined" : "dev";
 app.use(
@@ -114,47 +71,33 @@ app.use(
   })
 );
 
-if (securityConfig.rateLimit?.enabled !== false) {
-  app.use(rateLimiter);
-}
+securityPlugin.initialize(app, {
+  hpp: securityConfig.hpp !== false,
+  mongoSanitize: securityConfig.mongoSanitize !== false,
+  hppWhitelist: securityConfig.hppWhitelist || [],
+});
 
-if (ssrManager) {
-  ssrManager.initialize(app);
-  app.use(ssrManager.middleware());
-}
+rateLimitPlugin.initialize(app, {
+  enabled: securityConfig.rateLimit?.enabled !== false,
+  global: securityConfig.rateLimit?.global !== false,
+  windowMs: securityConfig.rateLimit?.windowMs,
+  max: securityConfig.rateLimit?.max,
+  limiters: securityConfig.rateLimit?.limiters,
+});
 
-if (apiEnhancer) {
-  app.use(apiEnhancer.responseFormatter());
-  app.use(apiEnhancer.versioningMiddleware());
-  apiEnhancer.setupSwagger(app);
-}
+ssrPlugin.initialize(app, configData.features?.ssr || {});
+apiPlugin.initialize(app, configData.features?.apiEnhancer || {});
 
 app.get("/health", healthCheck);
 app.get("/ready", readinessCheck);
 app.get("/alive", livenessCheck);
 
-const fs = require("fs");
-const faviconPath = Path.join(rootDir, publicPath, "favicon.ico");
-if (fs.existsSync(faviconPath)) {
-  app.use(Favicon(faviconPath));
-} else {
-  logger.warn(`Favicon not found at ${faviconPath}, skipping...`);
-}
-
-const staticPath = Path.join(rootDir, publicPath);
-if (fs.existsSync(staticPath)) {
-  app.use(
-    Static(staticPath, {
-      maxAge: "1d",
-      setHeaders: setCustomCacheControl,
-      etag: true,
-      extensions: "error.html",
-    })
-  );
-  logger.info(`Static files served from: ${staticPath}`);
-} else {
-  logger.warn(`Public directory not found at ${staticPath}, skipping static file serving...`);
-}
+staticPlugin.initialize(app, {
+  publicDirectory: configData.publicDirectory || "public",
+  maxAge: configData.staticFiles?.maxAge || "1d",
+  etag: configData.staticFiles?.etag !== false,
+  extensions: configData.staticFiles?.extensions || ["html"],
+});
 
 Routes(app);
 
@@ -163,23 +106,32 @@ app.use(errorHandler);
 
 let server;
 
-const startServer = () => {
+const startServer = async () => {
   logger.info(`Attempting to start server on port ${Port}...`);
+  
+  try {
+    await mongoDBPlugin.initialize(app, configData.mongoDB || {});
+  } catch (error) {
+    logger.error(`MongoDB initialization failed: ${error.message}`);
+    if (process.env.NODE_ENV === "production") {
+      process.exit(1);
+    }
+  }
   
   server = app.listen(Port, () => {
     const ssrStatus = configData.features?.ssr?.enabled ? "Enabled" : "Disabled";
-  const apiDocsStatus = configData.features?.apiEnhancer?.documentation ? "Enabled" : "Disabled";
+    const apiDocsStatus = configData.features?.apiEnhancer?.documentation ? "Enabled" : "Disabled";
   
-  logger.info(`
+    logger.info(`
 ╔═══════════════════════════════════════════════════════╗
-║                   ESPRESSO.JS v4.0.0                  ║
-║              Express Boilerplate Server               ║
+║                   ESPRESSO.JS v5.0.0                  ║
+║           Plugin-Based Express Framework              ║
 ╠═══════════════════════════════════════════════════════╣
 ║  Environment: ${configData.instance.padEnd(39)} ║
 ║  Port:        ${Port.toString().padEnd(39)} ║
 ║  URL:         http://localhost:${Port.toString().padEnd(27)} ║
-║  MongoDB:     ${(configData.mongoDB.enabled ? "Enabled" : "Disabled").padEnd(39)} ║
-║  API:         ${(configData.api.enabled ? "Enabled" : "Disabled").padEnd(39)} ║
+║  MongoDB:     ${(configData.mongoDB?.enabled ? "Enabled" : "Disabled").padEnd(39)} ║
+║  API:         ${(configData.api?.enabled ? "Enabled" : "Disabled").padEnd(39)} ║
 ║  SSR:         ${ssrStatus.padEnd(39)} ║
 ║  API Docs:    ${apiDocsStatus.padEnd(39)} ║
 ╚═══════════════════════════════════════════════════════╝
@@ -206,20 +158,19 @@ const startServer = () => {
   });
 };
 
-const gracefulShutdown = (signal) => {
+const gracefulShutdown = async (signal) => {
   logger.info(`${signal} received. Starting graceful shutdown...`);
   
-  server.close(() => {
+  server.close(async () => {
     logger.info("HTTP server closed");
     
-    if (mongoose.connection.readyState === 1) {
-      mongoose.connection.close(false, () => {
-        logger.info("MongoDB connection closed");
-        process.exit(0);
-      });
-    } else {
-      process.exit(0);
+    try {
+      await mongoDBPlugin.close();
+    } catch (error) {
+      logger.error(`Error closing MongoDB: ${error.message}`);
     }
+    
+    process.exit(0);
   });
 
   setTimeout(() => {
@@ -255,8 +206,15 @@ if (require.main === module) {
 // Export app and utilities for programmatic usage
 module.exports = app;
 module.exports.apiManager = apiManager;
-module.exports.ssrManager = ssrManager;
-module.exports.apiEnhancer = apiEnhancer;
+module.exports.pluginManager = pluginManager;
+module.exports.plugins = {
+  mongodb: mongoDBPlugin,
+  rateLimit: rateLimitPlugin,
+  security: securityPlugin,
+  ssr: ssrPlugin,
+  api: apiPlugin,
+  static: staticPlugin,
+};
 module.exports.config = configData;
 module.exports.startServer = startServer;
 module.exports.gracefulShutdown = gracefulShutdown;

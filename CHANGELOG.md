@@ -2,6 +2,154 @@
 
 All notable changes to EspressoJS will be documented in this file.
 
+## [5.0.0] - 2026-08-04
+
+### 🎉 Major Release - Plugin Architecture
+
+This is a **major breaking release** that introduces a plugin-based architecture, making EspressoJS truly flexible and non-opinionated.
+
+### ✨ Added
+
+#### Plugin System
+- **Plugin Manager** - New core plugin management system
+- **MongoDB Plugin** - Optional MongoDB integration as a plugin
+- **Rate Limiting Plugin** - Optional rate limiting with custom limiters
+- **Security Plugin** - Optional HPP and NoSQL sanitization
+- **SSR Plugin** - Enhanced server-side rendering with static generation
+- **API Plugin** - Enhanced API features with Swagger, validation, versioning
+- **Static Files Plugin** - Optional static file serving with optimized caching
+
+#### Static Site Generation
+- `generateStaticFile()` - Generate single static HTML file from template
+- `generateStaticSite()` - Generate multiple static pages in batch
+- Support for EJS, Pug, and Handlebars templates
+- Configurable output paths and data injection
+
+#### API Enhancements
+- Enhanced response formatters (`res.success()`, `res.error()`, `res.paginate()`)
+- Improved API versioning middleware
+- Better Swagger documentation generation
+- Custom API key authentication
+- Cache control helpers
+- Multiple rate limiter support
+
+#### Developer Experience
+- `pluginManager.safeRequire()` - Safely require optional dependencies
+- `pluginManager.isAvailable()` - Check if module is installed
+- Better error messages for missing dependencies
+- Improved logging for plugin initialization
+- Custom plugin creation support
+
+### 🔄 Changed
+
+#### Breaking Changes
+- **Dependencies** - Moved most dependencies to `optionalDependencies`
+- **Package Structure** - Core packages only in `dependencies`
+- **Plugin Architecture** - All features now use plugin system
+- **Initialization** - MongoDB, SSR, API now initialize via plugins
+- **Exports** - Changed module exports to include `plugins` and `pluginManager`
+
+#### Package Updates
+- Updated `helmet` from ^8.0.0 to ^8.3.0
+- Updated `dotenv` from ^16.4.5 to ^17.4.2
+- Updated `joi` from ^17.13.3 to ^17.13.4
+- Updated `morgan` from ^1.10.0 to ^1.11.0
+- Updated `yargs` from ^17.7.2 to ^17.7.3
+- Updated `axios` from ^1.7.7 to ^1.19.0 (optional)
+- Updated `mongoose` from ^8.8.3 to ^8.24.2 (optional)
+- Updated `express-rate-limit` from ^7.4.1 to ^7.5.1 (optional)
+- Updated `swagger-jsdoc` from ^6.2.8 to ^6.3.0 (optional)
+
+#### Configuration
+- Added `staticGeneration` option to SSR config
+- Added `limiters` option to rate limit config
+- Added `staticFiles` configuration section
+- Improved security configuration options
+
+### 🐛 Fixed
+
+- Fixed `.npmrc` warning about deprecated `always-auth` config
+- Fixed hard-coded dependencies causing installation bloat
+- Fixed cache control issues with static files
+- Fixed graceful shutdown not closing MongoDB properly
+- Fixed missing error handling for optional dependencies
+- Fixed SSR initialization errors when template engine not installed
+- Fixed rate limiting not working when express-rate-limit not installed
+
+### 🔒 Security
+
+- All dependencies updated to latest secure versions
+- Zero security vulnerabilities (npm audit clean)
+- Optional security features (install only what you need)
+- Better NoSQL injection prevention
+- Enhanced HPP protection
+- Improved CSP configuration flexibility
+
+### 📚 Documentation
+
+- Added `MIGRATION-V5.md` - Comprehensive migration guide
+- Added `docs/PLUGIN-GUIDE.md` - Complete plugin documentation
+- Updated `README.md` - Reflects v5.0.0 architecture
+- Updated examples for plugin usage
+- Added static site generation examples
+- Improved API documentation
+
+### 🗑️ Removed
+
+- Removed hard-coded `mongoose` from core dependencies
+- Removed hard-coded `ejs`, `pug`, `handlebars` from core
+- Removed hard-coded `express-rate-limit` from core
+- Removed hard-coded `hpp`, `express-mongo-sanitize` from core
+- Removed hard-coded `swagger-jsdoc`, `swagger-ui-express` from core
+- Removed hard-coded `serve-static`, `serve-favicon` from core
+- Removed deprecated middleware exports
+- Removed `always-auth` from `.npmrc`
+
+### 📦 Dependencies
+
+#### Core Dependencies (Required)
+- compression ^1.7.4
+- cors ^2.8.5
+- dotenv ^17.4.2
+- express ^4.21.1
+- helmet ^8.3.0
+- joi ^17.13.4
+- morgan ^1.11.0
+- winston ^3.17.0
+- yargs ^17.7.3
+
+#### Optional Dependencies (Install as needed)
+- axios ^1.19.0
+- ejs ^3.1.10
+- express-mongo-sanitize ^2.2.0
+- express-rate-limit ^7.5.1
+- express-validator ^7.2.0
+- handlebars ^4.7.8
+- hpp ^0.2.3
+- mongoose ^8.24.2
+- pug ^3.0.3
+- serve-favicon ^2.5.0
+- serve-static ^1.16.3
+- swagger-jsdoc ^6.3.0
+- swagger-ui-express ^5.0.1
+
+### 🔄 Migration
+
+See [MIGRATION-V5.md](./MIGRATION-V5.md) for detailed migration instructions from v4.x to v5.0.0.
+
+### 💡 Upgrade Notes
+
+1. **Install optional dependencies** - Run `npm install --include=optional` or install specific packages
+2. **Update imports** - Use `plugins` and `pluginManager` from main export
+3. **Update configuration** - No major config changes, but new options available
+4. **Test thoroughly** - Plugin architecture changes initialization order
+
+### 🙏 Contributors
+
+- MisterZik - Core development and architecture
+
+---
+
 ## [4.0.0] - 2024-01-15
 
 ### 🎉 Major Release - Modern, Secure, Feature-Rich

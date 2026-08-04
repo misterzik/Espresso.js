@@ -1,24 +1,26 @@
 ![Espresso](https://raw.githubusercontent.com/misterzik/Espresso.js/main/espresso.png)
 
-# EspressoJS v4.0.0
+# EspressoJS v5.0.0
 
-> **A modern, secure Express.js framework with SSR, API documentation, and enterprise-grade security. Built for rapid development with a plug-and-play approach.**
+> **A modern, plugin-based Express.js framework with optional SSR, MongoDB, and API enhancements. Zero-config startup with enterprise-grade security and complete flexibility.**
 
 [![npm version](https://img.shields.io/npm/v/@misterzik/espressojs.svg)](https://www.npmjs.com/package/@misterzik/espressojs)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Node.js Version](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen)](https://nodejs.org)
 [![Security](https://img.shields.io/badge/security-enterprise-blue)](./docs/SECURITY.md)
 
-## ✨ What's New in v4.0.0
+## ✨ What's New in v5.0.0
 
-🎉 **Major Release** - [See Full Changelog](./CHANGELOG.md) | [Migration Guide](./MIGRATION-V4.md) | [Upgrade Summary](./UPGRADE-SUMMARY.md)
+🎉 **Major Release** - [See Full Changelog](./CHANGELOG.md) | [Migration Guide](./MIGRATION-V5.md) | [Plugin Guide](./docs/PLUGIN-GUIDE.md)
 
-- 🎨 **Server-Side Rendering** - EJS, Handlebars, Pug support
-- 📚 **API Documentation** - Auto-generated Swagger/OpenAPI docs
-- 🔒 **Enhanced Security** - NoSQL injection prevention, HPP protection, strict CSP
-- 🚀 **API Enhancements** - Versioning, validation, response formatting
-- 📦 **Latest Packages** - All dependencies updated to secure versions
-- 📝 **Comprehensive Docs** - 2,000+ lines of guides and examples
+- 🔌 **Plugin Architecture** - Install only what you need, zero bloat
+- � **Optional Dependencies** - All features are now opt-in plugins
+- 🎨 **Static Site Generation** - Build static HTML from templates
+- 🚀 **Enhanced API Features** - Better validation, versioning, and docs
+- � **Flexible Security** - Choose your security features
+- 📝 **Plugin System** - Create custom plugins easily
+- ⚡ **Faster Startup** - Smaller footprint, better performance
+- �️ **Better DX** - Improved developer experience and flexibility
 
 ## 🚀 Features
 
@@ -34,15 +36,19 @@
 - 🔄 **Graceful Shutdown** - Proper cleanup of resources on exit
 - 📦 **Production Ready** - Compression, caching, and optimization built-in
 
-### New in v4.0.0
-- 🎨 **Server-Side Rendering** - Multiple template engines (EJS, Handlebars, Pug)
+### New in v5.0.0
+- 🔌 **Plugin Architecture** - Modular design, install only what you need
+- 📦 **Optional Dependencies** - MongoDB, SSR, rate limiting all optional
+- �️ **Static Site Generation** - Generate static HTML from templates
+- �🎨 **Server-Side Rendering** - Multiple template engines (EJS, Handlebars, Pug)
 - 📚 **API Documentation** - Interactive Swagger UI at `/api/docs`
-- 🔐 **Enhanced Security** - NoSQL injection prevention, HPP protection
+- 🔐 **Flexible Security** - Opt-in security features (HPP, NoSQL sanitization)
 - 🚀 **API Versioning** - URL and header-based versioning support
-- ✅ **Request Validation** - Built-in validation middleware
+- ✅ **Request Validation** - Optional express-validator integration
 - 🔑 **API Key Auth** - Simple API key authentication
 - 📊 **Response Formatting** - Standardized JSON responses
 - 🎯 **Pagination Helpers** - Built-in pagination utilities
+- 🛠️ **Plugin Manager** - Create and register custom plugins
 
 ## 📋 Requirements
 
@@ -51,8 +57,45 @@
 
 ## 📦 Installation
 
+### Basic Installation
+
 ```bash
-npm install --save @misterzik/espressojs
+npm install @misterzik/espressojs
+```
+
+### Install Optional Features
+
+EspressoJS v5.0.0 uses a plugin architecture. Install only the features you need:
+
+```bash
+# MongoDB support
+npm install mongoose
+
+# Server-Side Rendering (choose one or more)
+npm install ejs
+npm install pug
+npm install handlebars
+
+# Rate Limiting
+npm install express-rate-limit
+
+# Enhanced Security
+npm install hpp express-mongo-sanitize
+
+# API Documentation
+npm install swagger-jsdoc swagger-ui-express
+
+# Request Validation
+npm install express-validator
+
+# Static File Serving (optional, express.static used as fallback)
+npm install serve-static serve-favicon
+```
+
+### Install All Optional Features
+
+```bash
+npm install @misterzik/espressojs --include=optional
 ```
 
 ## 🎯 Quick Start
@@ -235,6 +278,54 @@ your-project/
     ├── error.log
     ├── exceptions.log
     └── rejections.log
+```
+
+## 🔌 Plugin System
+
+EspressoJS v5.0.0 introduces a powerful plugin architecture:
+
+```javascript
+const { plugins, pluginManager } = require('@misterzik/espressojs');
+
+// Access built-in plugins
+const ssrPlugin = plugins.ssr;
+const apiPlugin = plugins.api;
+const mongoPlugin = plugins.mongodb;
+
+// Create custom plugins
+const myPlugin = {
+  async initialize(app, config) {
+    app.use((req, res, next) => {
+      req.myFeature = true;
+      next();
+    });
+  }
+};
+
+pluginManager.register('myPlugin', myPlugin);
+await pluginManager.initialize('myPlugin', app, { enabled: true });
+```
+
+📖 **[Full Plugin Guide](./docs/PLUGIN-GUIDE.md)**
+
+## 🏗️ Static Site Generation
+
+New in v5.0.0 - Generate static HTML from your templates:
+
+```javascript
+const { plugins } = require('@misterzik/espressojs');
+
+// Generate single page
+await plugins.ssr.generateStaticFile('index', 'dist/index.html', {
+  title: 'Home Page',
+  data: myData
+});
+
+// Generate multiple pages
+await plugins.ssr.generateStaticSite([
+  { view: 'index', output: 'dist/index.html', data: homeData },
+  { view: 'about', output: 'dist/about.html', data: aboutData },
+]);
 ```
 
 ## 🔧 Configuration

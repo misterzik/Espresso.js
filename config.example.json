@@ -10,7 +10,10 @@
       "engine": "ejs",
       "viewsDir": "views",
       "cache": false,
-      "layout": null
+      "layout": null,
+      "_comment_staticGeneration": "Enable static site generation (v5.0.0+)",
+      "staticGeneration": false,
+      "helpers": {}
     },
     "apiEnhancer": {
       "enabled": true,
@@ -19,16 +22,42 @@
       "prefix": "/api",
       "version": "v1",
       "title": "Espresso.js API",
-      "description": "API documentation for Espresso.js application"
+      "description": "API documentation for Espresso.js application",
+      "contact": {
+        "name": "API Support",
+        "email": "support@example.com",
+        "url": "https://example.com"
+      },
+      "license": {
+        "name": "MIT",
+        "url": "https://opensource.org/licenses/MIT"
+      }
     }
   },
   
   "security": {
     "rateLimit": {
       "enabled": true,
+      "global": true,
       "windowMs": 900000,
-      "max": 100
+      "max": 100,
+      "_comment_limiters": "Define custom rate limiters (v5.0.0+)",
+      "limiters": {
+        "api": {
+          "windowMs": 900000,
+          "max": 200
+        },
+        "strict": {
+          "windowMs": 60000,
+          "max": 10
+        }
+      }
     },
+    "_comment_hpp": "HTTP Parameter Pollution protection (requires: npm install hpp)",
+    "hpp": true,
+    "hppWhitelist": ["filter", "sort"],
+    "_comment_mongoSanitize": "NoSQL injection prevention (requires: npm install express-mongo-sanitize)",
+    "mongoSanitize": true,
     "strictCSP": false,
     
     "_comment_disableCSP": "Set to true to completely disable Content Security Policy",
@@ -89,5 +118,12 @@
     },
     "timeout": 30000,
     "retries": 2
+  },
+  
+  "_comment_staticFiles": "Static file serving configuration (v5.0.0+)",
+  "staticFiles": {
+    "maxAge": "1d",
+    "etag": true,
+    "extensions": ["html"]
   }
 }
