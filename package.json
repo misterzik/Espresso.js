@@ -49,7 +49,7 @@
     },
     "homepage": "https://github.com/misterzik/Espresso.js#readme",
     "dependencies": {
-        "compression": "^1.7.4",
+        "compression": "^1.8.2",
         "cors": "^2.8.5",
         "dotenv": "^17.4.2",
         "express": "^4.21.1",
