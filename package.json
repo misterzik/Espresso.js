@@ -97,7 +97,7 @@
         "express-validator": "^7.2.0",
         "handlebars": "^4.7.8",
         "hpp": "^0.2.3",
-        "mongoose": "^8.24.2",
+        "mongoose": "^8.24.7",
         "pug": "^3.0.3",
         "serve-favicon": "^2.5.0",
         "serve-static": "^1.16.3",
